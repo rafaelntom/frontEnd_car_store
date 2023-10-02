@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {} */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* 
+body {} */
+
+.gradient-text {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgb(26, 22, 100) 25%, rgba(69, 41, 230, 1) 80%, rgba(176, 166, 240, 1) 150%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
