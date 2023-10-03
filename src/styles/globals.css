@@ -21,3 +21,11 @@ body {} */
   -webkit-background-clip: text;
   color: transparent;
 }
+
+.image_style {
+  width: 100vw;
+  height: 20vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
