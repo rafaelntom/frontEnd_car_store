@@ -1,33 +1,10 @@
 import { lexend } from "@/pages";
-import { Truculenta } from "next/font/google";
 import React from "react";
+import config from "../../tailwind.config";
 
 function CarCard({ announcements }) {
-  const currentAnnouncement = announcements[3];
-  console.log(currentAnnouncement);
+  const currentAnnouncement = announcements[0];
 
-  // {
-  // 	"id": 5,
-  // 	"brand": "Toyota",
-  // 	"model": "Camry",
-  // 	"year": "2022",
-  // 	"fuel_type": "Gasoline",
-  // 	"milage": "25000",
-  // 	"color": "Silver",
-  // 	"price_fipe": "45000.00",
-  // 	"price": "48000.00",
-  // 	"description": "This is a great car!",
-  // 	"user": {
-  // 		"id": 1,
-  // 		"name": "John Doe",
-  // 		"email": "johndoe@example.com"
-  // 	},
-  // 	"images": [
-  // 		{
-  // 			"img_url": "https://www.nissan-cdn.net/content/dam/Nissan/br/site/veiculos/novo-kicks-24/thumbs/Sense-Silver.png"
-  // 		}
-  // 	]
-  // }
   const truncatedDescription =
     currentAnnouncement.description.length > 100
       ? `${currentAnnouncement.description.slice(0, 100 - 1)}...`
@@ -39,11 +16,24 @@ function CarCard({ announcements }) {
     return initials;
   }
 
+  function getRandomColor() {
+    const colors = Object.values(config.theme.extend.colors.randomprofile);
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  }
+
   return (
-    <div className="rounded-xl w-[312px] max-w-[320px] flex flex-col group hover:cursor-pointer">
+    <div
+      className="
+    rounded-xl border-white 
+    min-w-[312px] max-w-[320px] h-[315px] max-h-[340px] 
+    flex flex-col p-1 group 
+    hover:cursor-pointer hover:scale-[1.03] transition-all duration-100 
+    md:justify-center md:mx-auto"
+    >
       <div className="image-container bg-grey-5 border-2 border-grey-5 w-full flex justify-center rounded-lg group-hover:border-2 group-hover:border-brand-brand1">
         <img
-          src={currentAnnouncement.images[0].img_url}
+          src={currentAnnouncement.images[0]?.img_url}
           className="max-w-[200px] min-w-[195px]"
         />
       </div>
@@ -60,7 +50,9 @@ function CarCard({ announcements }) {
 
         {/* User description */}
         <section className="user-cotnainer ">
-          <span className="bg-purple-500 rounded-full p-[5px] w-max text-white text-text-body-2">
+          <span
+            className={`bg-brand-brand1 rounded-full p-[5px] w-max text-white text-text-body-2`}
+          >
             {getInitials(currentAnnouncement.user.name)}
           </span>
           <span className="pl-2 text-grey-2 text-text-body-2">

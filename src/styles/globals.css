@@ -17,7 +17,10 @@ body {} */
 
 .gradient-text {
   background: rgb(2, 0, 36);
-  background: linear-gradient(90deg, rgb(26, 22, 100) 25%, rgba(69, 41, 230, 1) 80%, rgba(176, 166, 240, 1) 150%);
+  background: linear-gradient(90deg,
+      rgb(26, 22, 100) 25%,
+      rgba(69, 41, 230, 1) 80%,
+      rgba(176, 166, 240, 1) 150%);
   -webkit-background-clip: text;
   color: transparent;
 }
@@ -28,4 +31,12 @@ body {} */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+@media (min-width: 767px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    justify-self: center;
+  }
 }
