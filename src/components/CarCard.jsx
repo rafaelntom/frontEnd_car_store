@@ -1,6 +1,7 @@
 import { lexend } from "@/pages";
 import React from "react";
 import config from "../../tailwind.config";
+import Link from "next/link";
 
 function CarCard({ announcement }) {
   const truncatedDescription =
@@ -29,50 +30,53 @@ function CarCard({ announcement }) {
     hover:cursor-pointer hover:scale-[1.03] transition-all duration-100
     md:justify-center md:mx-auto"
     >
-      <div className="image-container bg-grey-5 w-full flex justify-center rounded-lg group-hover:border-2 group-hover:border-brand-brand1">
-        <img
-          src={announcement.images[0]?.img_url}
-          className="max-w-full min-w-full min-h-[120px] max-h-[120px] object-cover rounded-lg"
-        />
-      </div>
+      <Link href={`/announcement/${announcement.id}`}>
+        {/* Image container */}
+        <div className="image-container bg-grey-5 w-full flex justify-center rounded-lg group-hover:border-2 group-hover:border-brand-brand1">
+          <img
+            src={announcement.images[0]?.img_url}
+            className="max-w-full min-w-full min-h-[120px] max-h-[120px] object-cover rounded-lg"
+          />
+        </div>
 
-      {/* Info bellow the car image */}
-      <div className="info-container py-2 px-1 flex flex-col gap-3">
-        <span className={`${lexend.className} font-semibold text-grey-1`}>
-          {announcement.brand} - {announcement.model}
-        </span>
-
-        <span className="text-text-body-2 text-grey-2">
-          {truncatedDescription}
-        </span>
-
-        {/* User description */}
-        <section className="user-cotnainer ">
-          <span
-            className={`bg-brand-brand1 rounded-full p-[5px] w-max text-white text-text-body-2`}
-          >
-            {getInitials(announcement.user.name)}
+        {/* Info bellow the car image */}
+        <div className="info-container py-2 px-1 flex flex-col gap-3">
+          <span className={`${lexend.className} font-semibold text-grey-1`}>
+            {announcement.brand} - {announcement.model}
           </span>
-          <span className="pl-2 text-grey-2 text-text-body-2">
-            {announcement.user.name}
-          </span>
-        </section>
 
-        {/* Car information */}
-        <section className="carInfo-container flex justify-between">
-          <div className="year-milage flex gap-2">
-            <span className="text-text-body-2 text-brand-brand1 bg-brand-brand4 font-medium w-fit rounded p-1">
-              {announcement.milage} {" KM"}
+          <span className="text-text-body-2 text-grey-2">
+            {truncatedDescription}
+          </span>
+
+          {/* User description */}
+          <section className="user-cotnainer ">
+            <span
+              className={`bg-brand-brand1 rounded-full p-[5px] w-max text-white text-text-body-2`}
+            >
+              {getInitials(announcement.user.name)}
             </span>
-            <span className="text-text-body-2 text-brand-brand1 bg-brand-brand4 font-medium w-fit rounded p-1">
-              {announcement.year}
+            <span className="pl-2 text-grey-2 text-text-body-2">
+              {announcement.user.name}
             </span>
-          </div>
-          <span className="self-start text-grey-2 font-semibold">
-            R$ {announcement.price}
-          </span>
-        </section>
-      </div>
+          </section>
+
+          {/* Car information */}
+          <section className="carInfo-container flex justify-between">
+            <div className="year-milage flex gap-2">
+              <span className="text-text-body-2 text-brand-brand1 bg-brand-brand4 font-medium w-fit rounded p-1">
+                {announcement.milage} {" KM"}
+              </span>
+              <span className="text-text-body-2 text-brand-brand1 bg-brand-brand4 font-medium w-fit rounded p-1">
+                {announcement.year}
+              </span>
+            </div>
+            <span className="self-start text-grey-2 font-semibold">
+              R$ {announcement.price}
+            </span>
+          </section>
+        </div>
+      </Link>
     </div>
   );
 }
