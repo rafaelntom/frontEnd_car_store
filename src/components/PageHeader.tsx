@@ -1,6 +1,7 @@
 import React from "react";
 import DropDown from "./DropDown";
 import Link from "next/link";
+import { lexend } from "@/pages";
 
 function PageHeader() {
   return (
@@ -11,10 +12,10 @@ function PageHeader() {
         </h1>
       </Link>
 
-      <div className="hidden md:flex gap-6 items-center">
+      <div className={`hidden md:flex gap-6 items-center ${lexend.className}`}>
         <Link
           href="/login"
-          className="text-grey-2 font-semibold hover:cursor-pointer hover:scale-105 hover:text-gray-950 transition-all duration-200"
+          className="text-brand-brand1 font-medium hover:cursor-pointer hover:scale-105 hover:text-brand-brand3 transition-all duration-200"
         >
           Realizar Login
         </Link>

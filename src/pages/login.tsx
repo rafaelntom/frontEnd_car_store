@@ -5,16 +5,19 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { lexend } from ".";
 import Link from "next/link";
+import { LoginData, LoginSchema } from "@/schemas/user.schema";
 
 function login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginData>({
+    resolver: zodResolver(LoginSchema),
+  });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = (formData: LoginData) => {
+    console.log(formData);
   };
 
   return (
@@ -24,7 +27,7 @@ function login() {
       <div
         className={`flex flex-1 items-center justify-center bg-gray-200 ${lexend.className} `}
       >
-        <div className="login-container bg-white p-8 rounded-lg shadow-lg w-[80%] min-h-[80%] max-w-[565px] ">
+        <div className="login-container bg-white p-8 rounded-lg shadow-lg w-[80%]  max-w-[565px] ">
           <h2 className="text-2xl font-semibold mb-6">Login</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
@@ -41,11 +44,11 @@ function login() {
                 className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
                 placeholder="Digite seu e-mail..."
               />
-              {/* {errors.email && (
+              {errors.email && (
                 <span className="text-red-500 text-sm">
                   {errors.email.message}
                 </span>
-              )} */}
+              )}
             </div>
             <div className="mb-4 flex flex-col">
               <label
@@ -61,11 +64,11 @@ function login() {
                 className="block border p-2 w-full font-extralight focus:outline-brand-brand2 focus:outline-1"
                 placeholder="Digite sua senha..."
               />
-              {/* {errors.password && (
+              {errors.password && (
                 <span className="text-red-500 text-sm">
                   {errors.password.message}
                 </span>
-              )} */}
+              )}
               <span className="text-sm text-grey-4 cursor-pointer self-end mt-2 hover:text-gray-800">
                 Esqueci minha senha
               </span>
