@@ -11,7 +11,7 @@ export const lexend = Lexend({ subsets: ["latin"], variable: "--font-lexend" });
 export default function Home({ data }: any) {
   return (
     <>
-      <main className={`min-h-screen ${inter.className} `}>
+      <main className={`${inter.className} `}>
         <PageHeader />
 
         {/* Hero Section for the site logo and text */}

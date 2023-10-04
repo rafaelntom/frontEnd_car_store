@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 
@@ -28,12 +29,18 @@ function DropDown() {
               : "translate-y-[-100%] opacity-0"
           } absolute top-8 right-2 bg-gray-900 rounded shadow-lg mt-2 transition duration-300 ease-in-out`}
         >
-          <a href="#" className="block text-white py-2 px-4 hover:bg-gray-700">
+          <Link
+            href="/login"
+            className="block text-white py-2 px-4 hover:bg-gray-700"
+          >
             Login
-          </a>
-          <a href="#" className="block text-white py-2 px-4 hover:bg-gray-700">
+          </Link>
+          <Link
+            href="/register"
+            className="block text-white py-2 px-4 hover:bg-gray-700"
+          >
             Cadastrar
-          </a>
+          </Link>
         </div>
       )}
     </div>
