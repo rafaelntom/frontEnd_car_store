@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DropDown from "./DropDown";
 import Link from "next/link";
 import { lexend } from "@/pages";
@@ -7,6 +7,11 @@ import jwt from "jsonwebtoken";
 
 function PageHeader() {
   const { token, clearAuthToken, decodedToken } = useAuth();
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
 
   function getInitials(name) {
     const names = name.split(" ");
@@ -24,13 +29,51 @@ function PageHeader() {
 
       <div className={`hidden md:flex gap-6 items-center ${lexend.className}`}>
         {token != null ? (
-          <div className="flex gap-2 items-center">
-            <span
-              className={`bg-brand-brand1 rounded-full p-[6px] w-max text-white text-text-body-2`}
+          <div className="flex flex-col relative">
+            <div
+              className="flex gap-2 items-center hover:cursor-pointer"
+              onClick={toggleMenu}
             >
-              {getInitials(decodedToken.name)}
-            </span>
-            <span className="text-grey-2">{decodedToken.name}</span>
+              <span
+                className={`bg-brand-brand1 rounded-full p-[6px] w-max text-white text-text-body-2`}
+              >
+                {getInitials(decodedToken.name)}
+              </span>
+              <span className="text-grey-2">{decodedToken.name}</span>
+            </div>
+            {menuVisible && (
+              <div className="absolute top-9 bg-gray-900 z-20 w-max right-0">
+                <Link
+                  href="#"
+                  className="block text-white py-2 px-4 hover:bg-gray-700"
+                >
+                  Editar perfil
+                </Link>
+                <Link
+                  href="#"
+                  className="block text-white py-2 px-4 hover:bg-gray-700"
+                >
+                  Editar Endereço
+                </Link>
+                {decodedToken.is_seller == true ? (
+                  <Link
+                    href="#"
+                    className="block text-white py-2 px-4 hover:bg-gray-700"
+                  >
+                    Meus anuncios
+                  </Link>
+                ) : (
+                  ""
+                )}
+                <Link
+                  href="#"
+                  className="block text-white py-2 px-4 hover:bg-gray-700"
+                  onClick={clearAuthToken}
+                >
+                  Sair
+                </Link>
+              </div>
+            )}
           </div>
         ) : (
           <>
