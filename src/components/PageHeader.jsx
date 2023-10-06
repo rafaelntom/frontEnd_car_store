@@ -3,7 +3,6 @@ import DropDown from "./DropDown";
 import Link from "next/link";
 import { lexend } from "@/pages";
 import { useAuth } from "../hooks/useAuth";
-import jwt from "jsonwebtoken";
 
 function PageHeader() {
   const { token, clearAuthToken, decodedToken } = useAuth();
@@ -42,7 +41,9 @@ function PageHeader() {
               <span className="text-grey-2">{decodedToken.name}</span>
             </div>
             {menuVisible && (
-              <div className="absolute top-9 bg-gray-900 z-20 w-max right-0">
+              <div
+                className={`absolute bg-gray-900 z-20 w-max top-9 transition-all duration-300 animate-slideDown rounded`}
+              >
                 <Link
                   href="#"
                   className="block text-white py-2 px-4 hover:bg-gray-700"

@@ -23,7 +23,7 @@ function register() {
         <div
           className={`flex flex-1 items-center justify-center bg-gray-200 py-10 ${lexend.className} `}
         >
-          <div className=" bg-white p-8 rounded-lg shadow-lg w-[80%] max-w-[565px]">
+          <div className=" bg-white p-8 rounded-lg shadow-lg w-[80%] max-w-[565px] animate-slideUp">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label

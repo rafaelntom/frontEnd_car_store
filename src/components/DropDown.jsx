@@ -26,11 +26,7 @@ function DropDown() {
 
       {menuVisible && (
         <div
-          className={`${
-            menuVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-[-100%] opacity-0"
-          } absolute top-8 right-2 bg-gray-900 rounded shadow-lg mt-2 transition duration-300 ease-in-out w-max`}
+          className={`absolute top-8 right-2 bg-gray-900 rounded shadow-lg mt-2 transition duration-300 ease-in-out w-max animate-slideDown`}
         >
           {token != null ? (
             <>

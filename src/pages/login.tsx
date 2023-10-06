@@ -33,7 +33,7 @@ function login({ data }: any) {
       <div
         className={`flex flex-1 items-center justify-center bg-gray-200 ${lexend.className} `}
       >
-        <div className="login-container bg-white p-8 rounded-lg shadow-lg w-[80%]  max-w-[565px] ">
+        <div className="login-container bg-white p-8 rounded-lg shadow-lg w-[80%]  max-w-[565px] animate-slideUp">
           <h2 className="text-2xl font-semibold mb-6">Login</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">

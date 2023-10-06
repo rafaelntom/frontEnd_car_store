@@ -8,6 +8,20 @@ export const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        slideDown: {
+          "0%": { transform: "translateY(-135px)", opacity: "0" },
+          "100%": { transform: "translateY(0px)", opacity: "1" },
+        },
+        slideUp: {
+          "0%": { transform: "translateY(250px)", opacity: "0" },
+          "100%": { transform: "translateY(0px)", opacity: "1" },
+        },
+      },
+      animation: {
+        slideDown: "slideDown 0.3s ease-in-out",
+        slideUp: "slideUp 0.3s ease-in-out",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
