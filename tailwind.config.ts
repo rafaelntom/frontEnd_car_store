@@ -10,7 +10,7 @@ export const config: Config = {
     extend: {
       keyframes: {
         slideDown: {
-          "0%": { transform: "translateY(-135px)", opacity: "0" },
+          "0%": { transform: "translateY(-50px)", opacity: "0" },
           "100%": { transform: "translateY(0px)", opacity: "1" },
         },
         slideUp: {

@@ -17,6 +17,7 @@ function login({ data }: any) {
   } = useForm<LoginData>({
     resolver: zodResolver(LoginSchema),
   });
+
   console.log(data);
 
   const { login } = useContext(AuthContext);

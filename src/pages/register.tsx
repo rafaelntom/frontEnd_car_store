@@ -4,14 +4,22 @@ import PageHeader from "@/components/PageHeader";
 import React from "react";
 import { lexend } from ".";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginData, LoginSchema } from "@/schemas/user.schema";
+import {
+  LoginData,
+  LoginSchema,
+  RegisterData,
+  RegisterSchema,
+} from "@/schemas/user.schema";
+import FormInput from "../components/FormInput";
 
 function register() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({});
+  } = useForm<RegisterData>({
+    resolver: zodResolver(RegisterSchema),
+  });
 
   const onSubmit = (formData: any) => {
     console.log(formData);
@@ -25,75 +33,42 @@ function register() {
         >
           <div className=" bg-white p-8 rounded-lg shadow-lg w-[80%] max-w-[565px] animate-slideUp">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4">
-                <label
-                  htmlFor="name"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Nome
-                </label>
-                <input
-                  type="text"
-                  {...register("name")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="Ex: Rafael Tomazini"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  {...register("email")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="Ex: rafael@mail.com.br"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="cpf"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  CPF
-                </label>
-                <input
-                  type="text"
-                  {...register("cpf")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="000.000.000-00"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="phone"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Celular
-                </label>
-                <input
-                  type="text"
-                  {...register("phone")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="(DDD) 00000-0000"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="birth_date"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Data de nascimento
-                </label>
-                <input
-                  type="date"
-                  {...register("birth_date")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                />
-              </div>
+              <FormInput
+                label="Nome"
+                name="name"
+                register={register}
+                errors={errors}
+                placeholder="Ex: Rafael Tomazini"
+              />
+              <FormInput
+                label="Email"
+                name="email"
+                register={register}
+                errors={errors}
+                placeholder="Ex: Ex: teste@mail.com"
+              />
+              <FormInput
+                label="CPF"
+                name="cpf"
+                register={register}
+                errors={errors}
+                placeholder="000.000.000-00"
+              />
+              <FormInput
+                label="Celular"
+                name="phone"
+                register={register}
+                errors={errors}
+                placeholder="(DDD) 00000-0000"
+              />
+              <FormInput
+                label="Data de nascimento"
+                name="birth_date"
+                register={register}
+                errors={errors}
+                placeholder="mm/dd/yyyy"
+                type="date"
+              />
               <div className="mb-4">
                 <label
                   htmlFor="description"
@@ -108,91 +83,60 @@ function register() {
                 />
               </div>
               <span className="text-gray-900">Informações de endereço</span>
-              <div className="mb-4 mt-4">
-                <label
-                  htmlFor="cep"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  CEP
-                </label>
-                <input
-                  type="text"
-                  {...register("cep")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="00000-000"
-                />
-              </div>
+              <FormInput
+                label="CEP"
+                name="cep"
+                register={register}
+                errors={errors}
+                placeholder="00000-000"
+              />
+
               <div className="mb-4 flex justify-around gap-8">
                 <div className="left-div w-full">
-                  <label
-                    htmlFor="state"
-                    className="block text-sm text-gray-600 mb-1"
-                  >
-                    Estado
-                  </label>
-                  <input
-                    type="text"
-                    {...register("state")}
-                    className="block border p-2 placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder w-full"
-                    placeholder="Digitar Estado"
+                  <FormInput
+                    label="Estado"
+                    name="state"
+                    register={register}
+                    errors={errors}
+                    placeholder="Ex: RJ"
                   />
                 </div>
                 <div className="right-div w-full">
-                  <label
-                    htmlFor="city"
-                    className="block text-sm text-gray-600 mb-1"
-                  >
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    {...register("city")}
-                    className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                    placeholder="Digitar Estado"
+                  <FormInput
+                    label="Cidade"
+                    name="city"
+                    register={register}
+                    errors={errors}
+                    placeholder="Digite sua cidade"
                   />
                 </div>
               </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="street"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Rua
-                </label>
-                <input
-                  type="text"
-                  {...register("street")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="Ex: Rua Fernando Guimarães"
-                />
-              </div>
+
+              <FormInput
+                label="Rua"
+                name="street"
+                register={register}
+                errors={errors}
+                placeholder="Ex: Rua Fernando Guimarães"
+              />
+
               <div className="mb-4 flex justify-around gap-8">
                 <div className="left-div w-full">
-                  <label
-                    htmlFor="number"
-                    className="block text-sm text-gray-600 mb-1"
-                  >
-                    Numero
-                  </label>
-                  <input
-                    type="text"
-                    {...register("number")}
-                    className="block border p-2 placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder w-full"
-                    placeholder="Digitar Numero"
+                  <FormInput
+                    label="Numero"
+                    name="number"
+                    register={register}
+                    errors={errors}
+                    placeholder="Digitar numero"
                   />
                 </div>
                 <div className="right-div w-full">
-                  <label
-                    htmlFor="complement"
-                    className="block text-sm text-gray-600 mb-1"
-                  >
-                    Complemento
-                  </label>
-                  <input
-                    type="text"
-                    {...register("complement")}
-                    className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                    placeholder="Digitar Complemento"
+                  <FormInput
+                    label="Complemento"
+                    name="complement"
+                    register={register}
+                    errors={errors}
+                    placeholder="Digitar complemento"
                   />
                 </div>
               </div>
@@ -221,34 +165,23 @@ function register() {
                   Comprador
                 </label>
               </div>
-              <div className="mb-4 mt-4">
-                <label
-                  htmlFor="password"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Senha
-                </label>
-                <input
-                  type="text"
-                  {...register("password")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="Digite a Senha"
-                />
-              </div>
-              <div className="mb-4 mt-4">
-                <label
-                  htmlFor="confirm_password"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Confirme a senha
-                </label>
-                <input
-                  type="text"
-                  {...register("confirm_password")}
-                  className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
-                  placeholder="Digite a Senha"
-                />
-              </div>
+              <FormInput
+                label="Senha"
+                name="password"
+                register={register}
+                errors={errors}
+                placeholder="Digite sua senha"
+                type="password"
+              />
+              <FormInput
+                label="Confirme a senha"
+                name="confirm_password"
+                register={register}
+                errors={errors}
+                placeholder="Digite sua senha"
+                type="password"
+              />
+
               <button className="block w-full bg-brand-brand2 p-4 rounded-lg text-white tracking-wider">
                 Finalizar Cadastro
               </button>
