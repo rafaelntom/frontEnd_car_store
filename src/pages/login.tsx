@@ -1,13 +1,15 @@
 import { useForm } from "react-hook-form";
 import PageFooter from "@/components/PageFooter";
 import PageHeader from "@/components/PageHeader";
-import React from "react";
+import React, { useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { lexend } from ".";
 import Link from "next/link";
 import { LoginData, LoginSchema } from "@/schemas/user.schema";
+import { AuthContext } from "@/context/authContext";
+import nookies from "nookies";
 
-function login() {
+function login({ data }: any) {
   const {
     register,
     handleSubmit,
@@ -15,9 +17,13 @@ function login() {
   } = useForm<LoginData>({
     resolver: zodResolver(LoginSchema),
   });
+  console.log(data);
+
+  const { login } = useContext(AuthContext);
 
   const onSubmit = (formData: LoginData) => {
     console.log(formData);
+    login(formData);
   };
 
   return (
@@ -102,3 +108,19 @@ function login() {
 }
 
 export default login;
+
+export async function getServerSideProps(ctx: any) {
+  const cookies = nookies.get(ctx);
+  console.log(cookies);
+  if (cookies["motorshop.token"]) {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
+
+  return {
+    props: { data: cookies },
+  };
+}

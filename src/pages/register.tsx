@@ -27,14 +27,14 @@ function register() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label
-                  htmlFor="is_seller"
+                  htmlFor="name"
                   className="block text-sm text-gray-600 mb-1"
                 >
                   Nome
                 </label>
                 <input
                   type="text"
-                  {...register("is_seller")}
+                  {...register("name")}
                   className="block border p-2 w-full placeholder-semibold::placeholder focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light::placeholder"
                   placeholder="Ex: Rafael Tomazini"
                 />
@@ -201,7 +201,9 @@ function register() {
                 <label className="mr-4">
                   <input
                     type="radio"
-                    {...register("is_seller", { required: "Role is required" })}
+                    {...register("is_seller", {
+                      required: "Selecione uma opção!",
+                    })}
                     value="announcer"
                     className="mr-2"
                   />
@@ -210,7 +212,9 @@ function register() {
                 <label>
                   <input
                     type="radio"
-                    {...register("is_seller", { required: "Role is required" })}
+                    {...register("is_seller", {
+                      required: "Selecione uma opção!",
+                    })}
                     value="buyer"
                     className="mr-2"
                   />
