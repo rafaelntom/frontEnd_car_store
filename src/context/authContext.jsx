@@ -8,11 +8,11 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
-  const register = (userData) => {
+  const registerUser = (userData) => {
     api
       .post("/users", userData)
       .then(() => {
-        router.push("/login");
+        toast.success("Usuario cadastrado com sucesso!");
       })
       .catch((error) => {
         console.log(error);
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ register, login }}>
+    <AuthContext.Provider value={{ registerUser, login }}>
       {children}
     </AuthContext.Provider>
   );

@@ -14,7 +14,10 @@ function PageHeader() {
 
   function getInitials(name) {
     const names = name.split(" ");
-    const initials = names.map((word) => word.charAt(0).toUpperCase()).join("");
+    const initials = names
+      .map((word) => word.charAt(0).toUpperCase())
+      .slice(0, 2)
+      .join("");
     return initials;
   }
 
@@ -42,7 +45,7 @@ function PageHeader() {
             </div>
             {menuVisible && (
               <div
-                className={`absolute bg-gray-900 z-20 w-max top-9 transition-all duration-300 animate-slideDown rounded`}
+                className={`absolute bg-gray-900 z-20 w-max top-9 transition-all duration-300 animate-slideDown rounded justify-center`}
               >
                 <Link
                   href="#"

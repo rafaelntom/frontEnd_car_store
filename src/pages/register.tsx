@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import PageFooter from "@/components/PageFooter";
 import PageHeader from "@/components/PageHeader";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { lexend } from ".";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -11,23 +11,55 @@ import {
   RegisterSchema,
 } from "@/schemas/user.schema";
 import FormInput from "../components/FormInput";
+import { AuthContext } from "@/context/authContext";
+import RegisterModal from "../components/RegisterModal";
 
 function register() {
+  const [modalVisibility, setModalVisibility] = useState(true);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterData>({
-    resolver: zodResolver(RegisterSchema),
-  });
+  } = useForm<RegisterData>({ resolver: zodResolver(RegisterSchema) });
 
-  const onSubmit = (formData: any) => {
-    console.log(formData);
+  const { registerUser } = useContext(AuthContext);
+
+  const onSubmit = async (formData: RegisterData) => {
+    formData.is_seller === "announcer"
+      ? (formData.is_seller = true)
+      : (formData.is_seller = false);
+
+    const { zip_code, state, city, street, number, complement, ...rest } =
+      formData;
+
+    const address = {
+      zip_code: zip_code,
+      state: state,
+      street: street,
+      number: number,
+      complement: complement,
+    };
+
+    const userData = {
+      address,
+      ...rest,
+    };
+
+    try {
+      await registerUser(userData);
+      setModalVisibility(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <>
       <div className="flex flex-col min-h-screen">
         <PageHeader />
+        {modalVisibility && (
+          <RegisterModal setModalVisibility={setModalVisibility} />
+        )}
         <div
           className={`flex flex-1 items-center justify-center bg-gray-200 py-10 ${lexend.className} `}
         >
@@ -85,7 +117,7 @@ function register() {
               <span className="text-gray-900">Informações de endereço</span>
               <FormInput
                 label="CEP"
-                name="cep"
+                name="zip_code"
                 register={register}
                 errors={errors}
                 placeholder="00000-000"
@@ -178,7 +210,7 @@ function register() {
                 name="confirm_password"
                 register={register}
                 errors={errors}
-                placeholder="Digite sua senha"
+                placeholder="Confirme a senha digitada"
                 type="password"
               />
 
