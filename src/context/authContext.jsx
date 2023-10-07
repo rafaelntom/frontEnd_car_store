@@ -1,21 +1,26 @@
 import api from "@/services/api";
 import { useRouter } from "next/router";
 import { setCookie } from "nookies";
-import { ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
+  const [modalVisibility, setModalVisibility] = useState(false);
 
   const registerUser = (userData) => {
     api
       .post("/users", userData)
       .then(() => {
         toast.success("Usuario cadastrado com sucesso!");
+        setModalVisibility(true);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        if (error.response.data.message) {
+          toast.error(`${error.response.data.message}`, { autoClose: 4000 });
+        }
       });
   };
 
@@ -38,7 +43,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ registerUser, login }}>
+    <AuthContext.Provider
+      value={{ registerUser, login, modalVisibility, setModalVisibility }}
+    >
       {children}
     </AuthContext.Provider>
   );
