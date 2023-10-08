@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }) => {
         router.push("/");
       })
       .catch((error) => {
-        setLoading(true);
         console.error(error);
         toast.error("Credenciais invalidas!");
       });

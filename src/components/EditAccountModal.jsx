@@ -8,7 +8,6 @@ import { ModalContext } from "../context/modalContext";
 function EditAccountModal() {
   const { registerModal, setRegisterModal, toogleRegisterModalOff } =
     useContext(ModalContext);
-  console.log(registerModal);
 
   const {
     handleSubmit,

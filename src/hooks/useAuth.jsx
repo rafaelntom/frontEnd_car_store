@@ -26,7 +26,7 @@ export const useAuth = () => {
     event.preventDefault();
     nookies.destroy(null, "motorshop.token");
     setToken(null);
-    router.replace("/");
+    router.replace("/login");
   };
 
   return { token, clearAuthToken, decodedToken };
