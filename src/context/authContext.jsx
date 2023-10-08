@@ -1,13 +1,17 @@
 import api from "@/services/api";
 import { useRouter } from "next/router";
-import { setCookie } from "nookies";
-import { ReactNode, createContext, useContext, useState } from "react";
+import nookies, { setCookie, destroyCookie } from "nookies";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 export const AuthContext = createContext();
+import jwt from "jsonwebtoken";
+import axiosApi from "@/services/api";
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [modalVisibility, setModalVisibility] = useState(false);
+  const [token, setToken] = useState(null);
+  const [decodedToken, setDecodedToken] = useState(null);
 
   const registerUser = (userData) => {
     api
@@ -20,6 +24,8 @@ export const AuthProvider = ({ children }) => {
         console.error(error);
         if (error.response.data.message) {
           toast.error(`${error.response.data.message}`, { autoClose: 4000 });
+        } else {
+          toast.error("Erro desconhecido durante o cadastro do usuário");
         }
       });
   };
@@ -42,6 +48,17 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  const logOut = (event) => {
+    event.preventDefault();
+    destroyCookie(null, "motorshop.token");
+    setToken(null);
+    setDecodedToken(null);
+    toast("Usuário deslogado");
+    setTimeout(() => {
+      router.push("/login");
+    }, 1000);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -49,6 +66,11 @@ export const AuthProvider = ({ children }) => {
         login,
         modalVisibility,
         setModalVisibility,
+        logOut,
+        token,
+        setToken,
+        decodedToken,
+        setDecodedToken,
       }}
     >
       {children}

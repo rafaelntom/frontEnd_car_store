@@ -38,8 +38,8 @@ export default function Home({ data }: any) {
         {/* Main section with all the cards being redered */}
         <section
           className="
-        pt-10 pb-5 w-full flex h-full gap-3 overflow-x-auto px-4 scroll-smooth max-w-[1200px] mx-auto
-        md:grid md:grid-cols-2 md:auto-cols-min md:px-10 md:gap-8 md:justify-center md:items-center md:pb-10
+        pt-10 pb-10 w-full flex h-full gap-3 overflow-x-auto px-4 scroll-smooth max-w-[1200px] mx-auto
+        md:grid md:grid-cols-2 md:auto-cols-min md:px-10 md:gap-8 md:justify-center md:items-center md:pb-20
         lg:grid-cols-3"
         >
           {data.length > 0 ? (

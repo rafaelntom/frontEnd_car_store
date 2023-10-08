@@ -5,11 +5,13 @@ import { lexend } from "@/pages";
 import { useAuth } from "../hooks/useAuth";
 import EditAccountModal from "../components/EditAccountModal";
 import { ModalContext } from "../context/modalContext";
+import { AuthContext } from "@/context/authContext";
 
 function PageHeader() {
   const { toogleRegisterModalOff, toogleRegisterModalOn } =
     useContext(ModalContext);
-  const { token, clearAuthToken, decodedToken } = useAuth();
+  const { token, decodedToken } = useAuth();
+  const { logOut } = useContext(AuthContext);
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -26,7 +28,7 @@ function PageHeader() {
   }
 
   return (
-    <header className="flex items-center justify-between py-4 px-7 max-w-[1440px] mx-auto">
+    <header className="flex items-center justify-between py-4 px-7 max-w-[1440px] min-[1440px]:self-center min-[1440px]:w-full">
       <EditAccountModal />
       <Link href="/">
         <h1 className="font-bold text-heading-4 gradient-text">
@@ -75,13 +77,12 @@ function PageHeader() {
                 ) : (
                   ""
                 )}
-                <Link
-                  href="#"
-                  className="block text-white py-2 px-4 hover:bg-gray-700"
-                  onClick={clearAuthToken}
+                <span
+                  className="block text-white py-2 px-4 hover:bg-gray-700 cursor-pointer"
+                  onClick={logOut}
                 >
                   Sair
-                </Link>
+                </span>
               </div>
             )}
           </div>

@@ -1,14 +1,16 @@
+import { AuthContext } from "@/context/authContext";
 import { ModalContext } from "@/context/modalContext";
 import { useAuth } from "@/hooks/useAuth";
 import { lexend } from "@/pages";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 
 function DropDown() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [iconRotation, setIconRotation] = useState(0);
-  const { token, decodedToken, clearAuthToken } = useAuth();
+  const { logOut } = useContext(AuthContext);
+  const { token, decodedToken } = useAuth();
   const { toogleRegisterModalOn } = useContext(ModalContext);
 
   const toggleMenu = () => {
@@ -57,13 +59,12 @@ function DropDown() {
                 ) : (
                   ""
                 )}
-                <Link
-                  href="#"
-                  className="block text-white py-2 px-4 hover:bg-gray-700"
-                  onClick={clearAuthToken}
+                <span
+                  className="block text-white py-2 px-4 hover:bg-gray-700 cursor-pointer"
+                  onClick={logOut}
                 >
                   Sair
-                </Link>
+                </span>
               </div>
             </>
           ) : (

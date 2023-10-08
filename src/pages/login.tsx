@@ -64,6 +64,7 @@ function login({ data }: any) {
               <input
                 type="password"
                 id="password"
+                autoComplete="on"
                 {...register("password", { required: "Password is required" })}
                 className="block border p-2 w-full font-extralight focus:outline-brand-brand2 focus:outline-1"
                 placeholder="Digite sua senha..."
