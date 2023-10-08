@@ -37,14 +37,20 @@ export const AuthProvider = ({ children }) => {
         router.push("/");
       })
       .catch((error) => {
-        console.error();
+        setLoading(true);
+        console.error(error);
         toast.error("Credenciais invalidas!");
       });
   };
 
   return (
     <AuthContext.Provider
-      value={{ registerUser, login, modalVisibility, setModalVisibility }}
+      value={{
+        registerUser,
+        login,
+        modalVisibility,
+        setModalVisibility,
+      }}
     >
       {children}
     </AuthContext.Provider>

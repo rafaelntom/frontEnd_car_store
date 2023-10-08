@@ -10,7 +10,7 @@ function FormInput({
 }) {
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="block text-sm text-gray-600 mb-1">
+      <label htmlFor={name} className="block text-sm text-gray-600 mt-3 mb-1">
         {label}
       </label>
       <input

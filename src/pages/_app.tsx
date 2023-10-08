@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/context/authContext";
+import { ModalProvider } from "@/context/modalContext";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
@@ -20,7 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
         theme="colored"
       />
       <AuthProvider>
-        <Component {...pageProps} />
+        <ModalProvider>
+          <Component {...pageProps} />
+        </ModalProvider>
       </AuthProvider>
     </>
   );

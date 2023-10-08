@@ -18,7 +18,7 @@ function RegisterModal() {
       <div className="fixed inset-0 bg-black opacity-50"></div>
 
       <div className="bg-white p-8 rounded-md z-50 max-w-[32.5rem] w-[80%] flex flex-col animate-slideUp">
-        <div className="modal-top flex w-full justify-between pb-4">
+        <div className="modal-top flex w-full justify-between pb-4 items-center">
           <h2 className="text-xl mb-4 text-gray-1">Sucesso!</h2>
           <div
             className="cursor-pointer hover:scale-105 transition-all duration-200"

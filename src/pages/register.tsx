@@ -49,38 +49,11 @@ function register() {
     await registerUser(userData);
   };
 
-  async function debug() {
-    let userData = {
-      is_seller: true,
-      name: "Felipe Santos",
-      password: "secretpassword",
-      email: "felizpesantos@example.com",
-      cpf: "123.456.789-00",
-      phone: "(00) 99999-9999",
-      birth_date: "1990-01-15",
-      description: "This is a fake user description.",
-      address: {
-        zip_code: "12345-678",
-        state: "SP",
-        street: "123 Main St",
-        number: "456",
-        complement: "Apt 789",
-      },
-    };
-
-    await registerUser(userData);
-  }
-
   return (
     <>
       <div className="flex flex-col min-h-screen">
         <PageHeader />
-        <button
-          onClick={debug}
-          className="bg-red-500 p-2 rounded-lg w-fit self-center mb-2 font-serif text-white"
-        >
-          Debugar erro
-        </button>
+
         {modalVisibility && <RegisterModal />}
         <div
           className={`flex flex-1 items-center justify-center bg-gray-200 py-10 ${lexend.className} `}

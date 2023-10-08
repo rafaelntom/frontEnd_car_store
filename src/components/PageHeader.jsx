@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DropDown from "./DropDown";
 import Link from "next/link";
 import { lexend } from "@/pages";
 import { useAuth } from "../hooks/useAuth";
+import EditAccountModal from "../components/EditAccountModal";
+import { ModalContext } from "../context/modalContext";
 
 function PageHeader() {
+  const { toogleRegisterModalOff, toogleRegisterModalOn } =
+    useContext(ModalContext);
   const { token, clearAuthToken, decodedToken } = useAuth();
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -22,7 +26,8 @@ function PageHeader() {
   }
 
   return (
-    <header className="flex items-center justify-between p-4 ">
+    <header className="flex items-center justify-between py-4 px-7 ">
+      <EditAccountModal />
       <Link href="/">
         <h1 className="font-bold text-heading-4 gradient-text">
           Motors <span className="text-heading-6 pl-1">shop</span>
@@ -50,6 +55,7 @@ function PageHeader() {
                 <Link
                   href="#"
                   className="block text-white py-2 px-4 hover:bg-gray-700"
+                  onClick={toogleRegisterModalOn}
                 >
                   Editar perfil
                 </Link>
@@ -61,7 +67,7 @@ function PageHeader() {
                 </Link>
                 {decodedToken.is_seller == true ? (
                   <Link
-                    href="#"
+                    href={`/profile/${decodedToken.sub}`}
                     className="block text-white py-2 px-4 hover:bg-gray-700"
                   >
                     Meus anuncios

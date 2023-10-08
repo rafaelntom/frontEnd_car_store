@@ -1,12 +1,15 @@
+import { ModalContext } from "@/context/modalContext";
 import { useAuth } from "@/hooks/useAuth";
+import { lexend } from "@/pages";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 
 function DropDown() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [iconRotation, setIconRotation] = useState(0);
   const { token, decodedToken, clearAuthToken } = useAuth();
+  const { toogleRegisterModalOn } = useContext(ModalContext);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -26,7 +29,7 @@ function DropDown() {
 
       {menuVisible && (
         <div
-          className={`absolute top-8 right-2 bg-gray-900 rounded shadow-lg mt-2 transition duration-300 ease-in-out w-max animate-slideDown`}
+          className={`absolute top-8 right-2 bg-gray-900 rounded shadow-lg mt-2 transition duration-300 ease-in-out w-max animate-slideDown ${lexend.className}`}
         >
           {token != null ? (
             <>
@@ -34,6 +37,7 @@ function DropDown() {
                 <Link
                   href="#"
                   className="block text-white py-2 px-4 hover:bg-gray-700"
+                  onClick={toogleRegisterModalOn}
                 >
                   Editar perfil
                 </Link>

@@ -18,12 +18,9 @@ function login({ data }: any) {
     resolver: zodResolver(LoginSchema),
   });
 
-  console.log(data);
-
   const { login } = useContext(AuthContext);
 
   const onSubmit = (formData: LoginData) => {
-    console.log(formData);
     login(formData);
   };
 
@@ -112,7 +109,7 @@ export default login;
 
 export async function getServerSideProps(ctx: any) {
   const cookies = nookies.get(ctx);
-  console.log(cookies);
+
   if (cookies["motorshop.token"]) {
     return {
       redirect: {
