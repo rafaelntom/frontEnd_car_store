@@ -9,6 +9,7 @@ export const inter = Inter({ subsets: ["latin"] });
 export const lexend = Lexend({ subsets: ["latin"], variable: "--font-lexend" });
 
 export default function Home({ data }: any) {
+  console.log(data);
   return (
     <>
       <main className={`${inter.className} `}>

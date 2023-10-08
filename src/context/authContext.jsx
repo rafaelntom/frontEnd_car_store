@@ -1,11 +1,9 @@
 import api from "@/services/api";
 import { useRouter } from "next/router";
-import nookies, { setCookie, destroyCookie } from "nookies";
-import { createContext, useEffect, useState } from "react";
+import { setCookie, destroyCookie } from "nookies";
+import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 export const AuthContext = createContext();
-import jwt from "jsonwebtoken";
-import axiosApi from "@/services/api";
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
