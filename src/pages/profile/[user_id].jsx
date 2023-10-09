@@ -33,14 +33,6 @@ function UserPage({ currentUserAnnouncements, currentPageUser }) {
     return initials;
   }
 
-  function shortenDescription(description) {
-    if (description.length <= 125) {
-      return description;
-    } else {
-      return description.substring(0, 125 - 3) + "...";
-    }
-  }
-
   return (
     <div className={`flex flex-col min-h-screen ${lexend.className}`}>
       <PageHeader />
@@ -50,7 +42,7 @@ function UserPage({ currentUserAnnouncements, currentPageUser }) {
           <div className="bg-brand-brand1 w-full min-h-[19.25rem]"></div>
           <div className="user-container bg-white w-[85%] absolute top-[25%] rounded-lg py-10 px-7 flex flex-col max-w-[1440px] animate-slideDown">
             <span
-              className={`bg-brand-brand1 rounded-full px-11 py-10 mb-6 text-white w-fit text-[36px] 
+              className={`bg-brand-brand1 rounded-[50%] px-11 py-10 mb-6 text-white w-fit text-[36px] 
             `}
             >
               {currentPageUser ? getInitials(currentPageUser?.name) : ""}
@@ -68,9 +60,7 @@ function UserPage({ currentUserAnnouncements, currentPageUser }) {
               </span>
             </div>
             <span className="pt-4 w-fit">
-              {currentPageUser
-                ? shortenDescription(currentPageUser.description)
-                : ""}
+              {currentPageUser ? currentPageUser.description : ""}
             </span>
           </div>
         </div>

@@ -33,7 +33,7 @@ function PageHeader() {
         </h1>
       </Link>
 
-      <div className={`hidden md:flex gap-6 items-center ${lexend.className}`}>
+      <div className={`hidden md:flex gap-6 items-center ${lexend.className} `}>
         {token != null ? (
           <div className="flex flex-col relative">
             <div
@@ -49,10 +49,10 @@ function PageHeader() {
             </div>
             {menuVisible && (
               <div
-                className={`absolute bg-gray-900 z-20 w-max top-9 transition-all duration-300 animate-slideDown rounded justify-center`}
+                className={`absolute bg-gray-900 z-20 w-max top-9 transition-all duration-300 animate-slideDown rounded justify-center right-[-3px]`}
               >
                 <Link
-                  href="#"
+                  href={`/profile/${decodedToken.sub}`}
                   className="block text-white py-2 px-4 hover:bg-gray-700"
                   onClick={toogleRegisterModalOn}
                 >

@@ -31,7 +31,6 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
     console.log(data);
     try {
       await axiosApi.post(`/comments/announcement/${announcementId}`, data);
-      toast.success("Comentario criado com sucesso!");
       setTimeout(() => {
         window.location.reload();
       }, 500);

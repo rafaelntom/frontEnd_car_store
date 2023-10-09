@@ -4,8 +4,21 @@ import FormInput from "../components/FormInput";
 import { GrFormClose } from "react-icons/gr";
 import { useForm } from "react-hook-form";
 import { ModalContext } from "../context/modalContext";
+import axiosApi from "@/services/api";
+import { useRouter } from "next/router";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "react-toastify";
+import { destroyCookie } from "nookies";
 
 function EditAccountModal() {
+  const router = useRouter();
+  const { decodedToken } = useAuth();
+  let userId = "";
+
+  if (decodedToken) {
+    userId = decodedToken.sub;
+  }
+
   const { registerModal, setRegisterModal, toogleRegisterModalOff } =
     useContext(ModalContext);
 
@@ -15,8 +28,31 @@ function EditAccountModal() {
     formState: { errors },
   } = useForm();
 
-  const onFormSubmit = (formData) => {
-    console.log(formData);
+  const onFormSubmit = async (formData) => {
+    const filteredData = {};
+
+    for (const key in formData) {
+      formData[key] = formData[key].trim();
+      if (formData[key] !== "") {
+        filteredData[key] = formData[key];
+      }
+    }
+
+    try {
+      await axiosApi.patch(`/users/${userId}`, filteredData);
+      destroyCookie(null, "motorshop.token", { path: "/" });
+
+      toast.success("Dados alterados com sucesso! Favor logar novamente.", {
+        autoClose: 4000,
+      });
+
+      setTimeout(() => {
+        setRegisterModal(false);
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
