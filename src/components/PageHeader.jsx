@@ -28,7 +28,7 @@ function PageHeader() {
   }
 
   return (
-    <header className="flex items-center justify-between py-4 px-7 max-w-[1440px] min-[1440px]:self-center min-[1440px]:w-full">
+    <header className="flex items-center justify-between py-4 px-7 max-w-[1440px] min-[1440px]:mx-auto min-[1440px]:w-full">
       <EditAccountModal />
       <Link href="/">
         <h1 className="font-bold text-heading-4 gradient-text">

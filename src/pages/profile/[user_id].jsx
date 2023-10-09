@@ -5,9 +5,13 @@ import axiosApi from "@/services/api";
 import { useAuth } from "../../hooks/useAuth";
 import { inter, lexend } from "../index";
 import CarCard from "../../components/CarCard";
+import CarCardProfile from "../../components/CarCardProfile";
+import { useRouter } from "next/router";
 
-function UserPage({ currentUserAnnouncements }) {
+function UserPage({ currentUserAnnouncements, currentPageUser }) {
   const { decodedToken } = useAuth();
+  const router = useRouter();
+  console.log(currentUserAnnouncements, currentPageUser);
 
   function getInitials(name) {
     const names = name.split(" ");
@@ -30,7 +34,7 @@ function UserPage({ currentUserAnnouncements }) {
     <div className={`flex flex-col min-h-screen ${lexend.className}`}>
       <PageHeader />
 
-      <section className="main-container flex-1 bg-grey-6 flex flex-col items-center mb-10 md:mb-0">
+      <section className="main-container flex-1 bg-grey-7 flex flex-col items-center mb-10 md:mb-0">
         <div className="top-page-container w-full relative flex flex-col items-center">
           <div className="bg-brand-brand1 w-full min-h-[19.25rem]"></div>
           <div className="user-container bg-white w-[85%] absolute top-[25%] rounded-lg py-10 px-7 flex flex-col max-w-[1440px] animate-slideDown">
@@ -38,22 +42,24 @@ function UserPage({ currentUserAnnouncements }) {
               className={`bg-brand-brand1 rounded-full px-11 py-10 mb-6 text-white w-fit text-[36px] 
             `}
             >
-              {decodedToken ? getInitials(decodedToken?.name) : ""}
+              {currentPageUser ? getInitials(currentPageUser?.name) : ""}
             </span>
             <div
               className={`name-is_announcer flex gap-4 w-fit items-center justify-between ${inter.className}`}
             >
               <h3 className="font-semibold">
-                {decodedToken ? decodedToken.name : "Empty"}
+                {currentPageUser ? currentPageUser.name : "Empty"}
               </h3>
               <span className="bg-brand-brand4 py-1 px-2 self-center rounded-lg text-brand-brand1 font-normal">
-                Anunciante
+                {currentPageUser && currentPageUser.is_seller
+                  ? "Anunciante"
+                  : "Comprador"}
               </span>
             </div>
             <span className="pt-4 w-fit">
-              {shortenDescription(
-                "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum tenetur ratione, minus ullam autem molestias quam velit placeat aliquid eveniet nostrum quos tempora sit earum iusto! Optio quas placeat fugit libero perspiciatis nemo natus? Quam, recusandae. Veritatis distinctio facilis illo quas autem accusantium quo dolorum explicabo corrupti ullam omnis, error suscipit ut voluptatem provident eos repudiandae neque? Consectetur ad, asperiores eaque soluta sit aliquam, aspernatur ipsam reiciendis, voluptas culpa illo similique voluptates officia nesciunt corrupti a. Deserunt facilis error maiores aspernatur exercitationem ratione ut, totam quas dicta, id atque nobis optio esse impedit saepe illum recusandae dolores nemo officia ex repellat provident! Expedita aspernatur inventore eveniet alias provident, repellat totam iste blanditiis minima adipisci dolores nobis suscipit sunt, aperiam numquam."
-              )}
+              {currentPageUser
+                ? shortenDescription(currentPageUser.description)
+                : ""}
             </span>
           </div>
         </div>
@@ -68,7 +74,7 @@ function UserPage({ currentUserAnnouncements }) {
             >
               {currentUserAnnouncements.length > 0 ? (
                 currentUserAnnouncements.map((announcement, index) => (
-                  <CarCard
+                  <CarCardProfile
                     key={index}
                     announcement={announcement}
                     edit={true}
@@ -95,22 +101,27 @@ export default UserPage;
 
 export async function getServerSideProps(context) {
   const { user_id } = context.params;
-  console.log(user_id);
 
   try {
     const response = await axiosApi.get(`/announcements/user/${user_id}`);
+    const responseUser = await axiosApi.get(`/users/${user_id}`);
     const currentUserAnnouncements = response.data;
+    const currentPageUser = responseUser.data;
 
     return {
       props: {
         currentUserAnnouncements,
+        currentPageUser,
       },
     };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    const errorMessage =
+      error.response.data.message || "An unknown error occurred";
+    console.error("Error fetching data:", errorMessage);
+
     return {
       redirect: {
-        destination: "/error",
+        destination: `/error?message=${encodeURIComponent(errorMessage)}`,
         permanent: false,
       },
     };

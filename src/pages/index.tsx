@@ -9,10 +9,9 @@ export const inter = Inter({ subsets: ["latin"] });
 export const lexend = Lexend({ subsets: ["latin"], variable: "--font-lexend" });
 
 export default function Home({ data }: any) {
-  console.log(data);
   return (
-    <>
-      <main className={`${inter.className} `}>
+    <div className="flex flex-col min-h-screen">
+      <main className={`${inter.className} flex-1`}>
         <PageHeader />
 
         {/* Hero Section for the site logo and text */}
@@ -57,7 +56,7 @@ export default function Home({ data }: any) {
         </section>
       </main>
       <PageFooter />
-    </>
+    </div>
   );
 }
 

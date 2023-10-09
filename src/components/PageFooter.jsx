@@ -18,7 +18,7 @@ function PageFooter() {
         <h2 className="font-bold text-heading-4">
           Motors <span className="text-heading-6 italic">shop</span>
         </h2>
-        <span className="font-light italic">
+        <span className="font-light italic text-center">
           © 2023 - Todos os direitos reservados.
         </span>
         <button onClick={scrollToTop} className="bg-grey-2 p-1 rounded-md">

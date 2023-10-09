@@ -3,7 +3,7 @@ import React from "react";
 import config from "../../tailwind.config";
 import Link from "next/link";
 
-function CarCard({ announcement }) {
+function CarCardProfile({ announcement, edit = false }) {
   const truncatedDescription =
     announcement.description.length > 100
       ? `${announcement.description.slice(0, 100 - 1)}...`
@@ -73,8 +73,18 @@ function CarCard({ announcement }) {
           </section>
         </div>
       </Link>
+      {edit ? (
+        <div className="edit-buttons text-sm flex gap-4 w-full justify-start px-1 mt-2">
+          <span className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8">
+            Editar
+          </span>
+          <span className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8">
+            Ver detalhes
+          </span>
+        </div>
+      ) : null}
     </div>
   );
 }
 
-export default CarCard;
+export default CarCardProfile;
