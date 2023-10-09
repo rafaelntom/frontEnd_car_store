@@ -18,6 +18,20 @@ function CarCard({ announcement }) {
     return initials;
   }
 
+  function formatPrice(price) {
+    const cleanPrice = price.replace(/[^\d]/g, "");
+
+    const integerPart = cleanPrice.slice(0, -2);
+    const decimalPart = cleanPrice.slice(-2);
+
+    const formattedIntegerPart = integerPart.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      "."
+    );
+
+    return `R$ ${formattedIntegerPart},${decimalPart}`;
+  }
+
   return (
     <div
       className={`rounded-xl border-white
@@ -68,7 +82,7 @@ function CarCard({ announcement }) {
               </span>
             </div>
             <span className="self-start text-grey-2 text-heading-7 font-semibold">
-              R$ {announcement.price}
+              {formatPrice(announcement.price)}
             </span>
           </section>
         </div>

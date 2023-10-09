@@ -46,15 +46,14 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const logOut = (event) => {
-    event.preventDefault();
+  const logOut = () => {
     destroyCookie(null, "motorshop.token");
     setToken(null);
     setDecodedToken(null);
     toast("Usuário deslogado");
     setTimeout(() => {
       router.push("/login");
-    }, 1000);
+    }, 500);
   };
 
   return (

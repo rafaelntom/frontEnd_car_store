@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PageHeader from "../../components/PageHeader";
 import PageFooter from "../../components/PageFooter";
 import axiosApi from "@/services/api";
@@ -10,8 +10,19 @@ import { useRouter } from "next/router";
 
 function UserPage({ currentUserAnnouncements, currentPageUser }) {
   const { decodedToken } = useAuth();
-  const router = useRouter();
-  console.log(currentUserAnnouncements, currentPageUser);
+  const [profileOwner, setProfileOwner] = useState(false);
+
+  useEffect(() => {
+    if (
+      decodedToken &&
+      currentPageUser &&
+      Number(decodedToken.sub) === Number(currentPageUser.id)
+    ) {
+      setProfileOwner(true);
+    } else {
+      setProfileOwner(false);
+    }
+  }, [decodedToken, currentPageUser]);
 
   function getInitials(name) {
     const names = name.split(" ");
@@ -77,7 +88,7 @@ function UserPage({ currentUserAnnouncements, currentPageUser }) {
                   <CarCardProfile
                     key={index}
                     announcement={announcement}
-                    edit={true}
+                    edit={profileOwner}
                   />
                 ))
               ) : (

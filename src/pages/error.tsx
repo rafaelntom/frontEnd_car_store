@@ -12,7 +12,7 @@ function Error() {
     <div
       className={`flex justify-center items-center min-h-screen ${lexend.className} bg-grey-6`}
     >
-      <div className="center-container bg-feedback-alert1 h-1/2 p-8 max-w-[500px] rounded-lg text-white flex flex-col items-center gap-10 shadow-lg">
+      <div className="center-container bg-feedback-alert1 h-1/2 p-8 max-w-[500px] rounded-lg text-white flex flex-col items-center gap-10 shadow-xl shadow-black shad relative animate-slideUp hover:scale-[1.01] transition-all duration-100">
         <div className="top-message flex justify-between items-center min-w-full flex-col gap-2">
           <BiSolidError className="text-5xl" />
           <h2 className="text-3xl font-semibold text-center">
@@ -24,7 +24,7 @@ function Error() {
         </p>
         <Link
           href="/"
-          className="bg-feedback-alert3 text-grey-1 p-2 rounded-lg hover:scale-105 transition-all duration-150"
+          className="bg-feedback-alert3 text-grey-1 p-2 rounded-lg hover:scale-105 transition-all dura"
         >
           Voltar para a página inicial
         </Link>
