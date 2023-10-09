@@ -5,13 +5,10 @@ import { lexend } from "@/pages";
 import { useAuth } from "../hooks/useAuth";
 import EditAccountModal from "../components/EditAccountModal";
 import { ModalContext } from "../context/modalContext";
-import { AuthContext } from "@/context/authContext";
 
 function PageHeader() {
-  const { toogleRegisterModalOff, toogleRegisterModalOn } =
-    useContext(ModalContext);
-  const { token, decodedToken } = useAuth();
-  const { logOut } = useContext(AuthContext);
+  const { toogleRegisterModalOn } = useContext(ModalContext);
+  const { token, decodedToken, logOutHook } = useAuth();
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -79,7 +76,7 @@ function PageHeader() {
                 )}
                 <span
                   className="block text-white py-2 px-4 hover:bg-gray-700 cursor-pointer"
-                  onClick={logOut}
+                  onClick={logOutHook}
                 >
                   Sair
                 </span>

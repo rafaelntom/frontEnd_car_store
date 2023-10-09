@@ -74,5 +74,15 @@ const CommentSchema = z.object({
   }),
 });
 
+export const CreateCommentSchema = z.object({
+  description: z
+    .string()
+    .nonempty("Não é possivel enviar um comentario vazio")
+    .min(10, { message: "O comentario deve ter no minimo 10 caracteres" }),
+});
+
 export type SingleAnnouncementData = z.infer<typeof RetrieveSingleAnnouncement>;
 export type CommentData = z.infer<typeof CommentSchema>;
+export type FormComment = {
+  description: string;
+};

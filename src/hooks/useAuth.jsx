@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
-import nookies from "nookies";
+import nookies, { destroyCookie } from "nookies";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 import axiosApi from "@/services/api";
 import { toast } from "react-toastify";
 
 export const useAuth = () => {
+  const router = useRouter();
   const [token, setToken] = useState(null);
   const [decodedToken, setDecodedToken] = useState(null);
+
+  const logOutHook = () => {
+    destroyCookie(null, "motorshop.token", { path: "/" });
+    setToken(null);
+    setDecodedToken(null);
+    toast("Usuário deslogado");
+    setTimeout(() => {
+      router.replace("/login");
+    }, 800);
+  };
 
   useEffect(() => {
     const cookies = nookies.get();
@@ -22,5 +33,5 @@ export const useAuth = () => {
     setDecodedToken(decodedJwtToken || null);
   }, []);
 
-  return { token, decodedToken };
+  return { token, decodedToken, logOutHook };
 };

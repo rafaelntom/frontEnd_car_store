@@ -1,14 +1,46 @@
 import PageFooter from "@/components/PageFooter";
 import PageHeader from "@/components/PageHeader";
 import axiosApi from "@/services/api";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { lexend } from "..";
-import { SingleAnnouncementData } from "@/schemas/announcement.schema";
+import {
+  CommentData,
+  CreateCommentSchema,
+  SingleAnnouncementData,
+} from "@/schemas/announcement.schema";
 import Link from "next/link";
 import Comment from "../../components/Comment";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 function newcar({ data }: { data: SingleAnnouncementData }) {
-  console.log(data);
+  const { decodedToken }: { decodedToken: any } = useAuth();
+  const router = useRouter();
+  const announcementId = router.query.announcement_id;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CommentData>({ resolver: zodResolver(CreateCommentSchema) });
+
+  async function onSubmit(data: CommentData) {
+    console.log(data);
+    try {
+      await axiosApi.post(`/comments/announcement/${announcementId}`, data);
+      toast.success("Comentario criado com sucesso!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
+  }
+
+  useEffect(() => {}, [data]);
 
   function formatPrice(price: string) {
     const cleanPrice = price.replace(/[^\d]/g, "");
@@ -134,6 +166,41 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
             return <Comment key={comment.id} data={comment} />;
           })}
         </div>
+
+        {/* Container para criar um comentario */}
+        {decodedToken ? (
+          <div
+            className="bg-white w-[90%] py-4 mt-[15px] px-3 gap-8 self-center h-[90%] rounded-lg flex flex-col justify-center shadow-sm items-start
+          md:max-w-[46.875rem] "
+          >
+            <div className="user-info flex gap-3 items-center">
+              <span className="bg-brand-brand1 p-2 rounded-[50%] text-white">
+                {getInitials(decodedToken.name)}
+              </span>
+              <span className="font-medium">{decodedToken.name}</span>
+            </div>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full flex flex-col gap-3"
+            >
+              <textarea
+                {...register("description")}
+                className="block border p-2 w-full placeholder-semibold focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light resize-none mb-2"
+                placeholder="Insira um comentario"
+              />
+
+              {errors.description && (
+                <span className="text-sm text-feedback-alert1">
+                  {errors.description.message}
+                </span>
+              )}
+
+              <button className="bg-brand-brand1 py-2 px-3 rounded-lg text-white w-fit">
+                Comentar
+              </button>
+            </form>
+          </div>
+        ) : null}
         <PageFooter />
       </div>
     </div>

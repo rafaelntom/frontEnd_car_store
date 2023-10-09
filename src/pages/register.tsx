@@ -4,12 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import React, { useContext, useState } from "react";
 import { lexend } from ".";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  LoginData,
-  LoginSchema,
-  RegisterData,
-  RegisterSchema,
-} from "@/schemas/user.schema";
+import { RegisterData, RegisterSchema } from "@/schemas/user.schema";
 import FormInput from "../components/FormInput";
 import { AuthContext } from "@/context/authContext";
 import RegisterModal from "../components/RegisterModal";

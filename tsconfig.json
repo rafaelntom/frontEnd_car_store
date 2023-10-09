@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/PageHeader.jsx", "src/components/PageFooter.jsx", "src/components/DropDown.jsx", "src/components/CarCard.jsx", "src/context/authContext.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/PageHeader.jsx", "src/components/PageFooter.jsx", "src/components/DropDown.jsx", "src/components/CarCard.jsx", "src/context/authContext.jsx", "src/pages/announcement/[announcement_id].jsx", "src/hooks/useAuth.jsx", "src/pages/announcement/[announcement_id].jsx"],
   "exclude": ["node_modules"]
 }

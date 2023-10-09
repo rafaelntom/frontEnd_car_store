@@ -46,16 +46,6 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const logOut = () => {
-    destroyCookie(null, "motorshop.token");
-    setToken(null);
-    setDecodedToken(null);
-    toast("Usuário deslogado");
-    setTimeout(() => {
-      router.push("/login");
-    }, 500);
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -63,7 +53,6 @@ export const AuthProvider = ({ children }) => {
         login,
         modalVisibility,
         setModalVisibility,
-        logOut,
         token,
         setToken,
         decodedToken,

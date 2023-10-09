@@ -43,7 +43,7 @@ function Comment({ data }: { data: CommentData }) {
         </span>
       </div>
 
-      <p className="text-justify">{data.description}</p>
+      <p className="md:text-justify">{data.description}</p>
     </div>
   );
 }
