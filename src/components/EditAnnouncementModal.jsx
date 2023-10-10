@@ -6,14 +6,21 @@ import FormInput from "./FormInput";
 import { useForm } from "react-hook-form";
 
 const EditAnnouncementModal = () => {
-  const { editAnnouncementModal, setEditAnnouncementModal } =
-    useContext(ModalContext);
+  const {
+    editAnnouncementModal,
+    setEditAnnouncementModal,
+    setDeleteAnnouncementModal,
+  } = useContext(ModalContext);
 
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
+
+  const handleFormSubmit = async (data) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -31,7 +38,7 @@ const EditAnnouncementModal = () => {
               />
             </div>
             <span>Informações do veículo</span>
-            <form action="">
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
               <FormInput
                 label="Marca"
                 name="brand"
@@ -115,7 +122,7 @@ const EditAnnouncementModal = () => {
               />
               <FormInput
                 label="1ª Imagem da galeria"
-                name="img_url"
+                name="img_url_1"
                 register={register}
                 errors={errors}
                 placeholder="https://image.url"
@@ -123,12 +130,29 @@ const EditAnnouncementModal = () => {
               />
               <FormInput
                 label="2ª Imagem da galeria"
-                name="img_url"
+                name="img_url_2"
                 register={register}
                 errors={errors}
                 placeholder="https://image.url"
                 type="URL"
               />
+              <div className="btns-container flex flex-wrap w-full gap-4 justify-start pt-2">
+                <button
+                  className="bg-feedback-alert3 text-feedback-alert1 py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150"
+                  onClick={() => {
+                    setEditAnnouncementModal(false);
+                    setDeleteAnnouncementModal(true);
+                  }}
+                >
+                  Excluir Anúncio
+                </button>
+                <button className="bg-brand-brand2 text-white py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150">
+                  Salvar alterações
+                </button>
+                <button className="bg-grey-6 text-grey-2 py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150">
+                  Cancelar
+                </button>
+              </div>
             </form>
           </div>
         </div>

@@ -4,12 +4,15 @@ import { useAuth } from "@/hooks/useAuth";
 import React, { useContext } from "react";
 import { lexend } from "@/pages";
 import { GrFormClose } from "react-icons/gr";
+import axiosApi from "@/services/api";
+import { toast } from "react-toastify";
 
 const DeleteAnnouncementModal = () => {
-  const router = useRouter();
-  // const { setDeleteAnnouncementModal } = useContext(ModalContextProvider);
-  const { setDeleteAnnouncementModal, deleteAnnouncementModal } =
-    useContext(ModalContext);
+  const {
+    setDeleteAnnouncementModal,
+    deleteAnnouncementModal,
+    announcementId,
+  } = useContext(ModalContext);
 
   const { decodedToken } = useAuth();
 
@@ -20,19 +23,18 @@ const DeleteAnnouncementModal = () => {
   }
 
   const handleAnnouncementDeletion = async () => {
-    // try {
-    //   await axiosApi.delete(`/users/${userId}`);
-    //   destroyCookie(null, "motorshop.token", { path: "/" });
-    //   toast("Usuário deletado, você será deslogado", {
-    //     autoClose: 4000,
-    //   });
-    //   setTimeout(() => {
-    //     setDeleteModal(false);
-    //     router.push("/");
-    //   }, 2000);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      await axiosApi.delete(`/announcements/${announcementId}`);
+
+      toast.success("Anúncio deletado com sucesso.", {
+        autoClose: 300,
+      });
+
+      setDeleteAnnouncementModal(false);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

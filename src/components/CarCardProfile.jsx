@@ -5,7 +5,8 @@ import Link from "next/link";
 import { ModalContext } from "../context/modalContext";
 
 function CarCardProfile({ announcement, edit = false }) {
-  const { setEditAnnouncementModal } = useContext(ModalContext);
+  const { setEditAnnouncementModal, setAnnouncementId } =
+    useContext(ModalContext);
 
   const truncatedDescription =
     announcement.description.length > 100
@@ -97,7 +98,10 @@ function CarCardProfile({ announcement, edit = false }) {
         <div className="edit-buttons text-sm flex gap-4 w-full justify-start px-1 mt-2 ">
           <span
             className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8 cursor-pointer transition-all duration-200"
-            onClick={toogleEditModal}
+            onClick={() => {
+              toogleEditModal();
+              setAnnouncementId(announcement.id);
+            }}
           >
             Editar
           </span>
