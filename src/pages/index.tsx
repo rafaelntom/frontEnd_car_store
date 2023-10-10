@@ -42,7 +42,7 @@ export default function Home({ data }: any) {
         md:grid md:grid-cols-2 md:auto-cols-min md:px-10 md:gap-8 md:justify-center md:items-center md:pb-20
         lg:grid-cols-3"
         >
-          {data.length > 0 ? (
+          {data && data.length > 0 ? (
             data.map((announcement: any, index: number) => (
               <CarCard key={index} announcement={announcement} />
             ))
@@ -61,9 +61,21 @@ export default function Home({ data }: any) {
 }
 
 export async function getServerSideProps() {
-  const response = await axiosApi.get("/announcements");
+  try {
+    const response = await axiosApi.get("/announcements");
+    return {
+      props: { data: response.data },
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error);
+    const errorMessage = "An unknown error occurred";
 
-  return {
-    props: { data: response.data },
-  };
+    return {
+      redirect: {
+        destination: `/error?message=${encodeURIComponent(errorMessage)}`,
+        permanent: false,
+      },
+      props: { data: "" },
+    };
+  }
 }

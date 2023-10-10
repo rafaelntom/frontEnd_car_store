@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { destroyCookie } from "nookies";
 
 function EditAccountModal() {
-  const router = useRouter();
   const { decodedToken } = useAuth();
   let userId = "";
 
@@ -26,7 +25,21 @@ function EditAccountModal() {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm();
+
+  const watchedFields = watch([
+    "name",
+    "email",
+    "cpf",
+    "phone",
+    "birth_date",
+    "description",
+  ]);
+
+  const isAnyFieldFilled = Object.values(watchedFields).some(
+    (fieldValue) => fieldValue
+  );
 
   const onFormSubmit = async (formData) => {
     const filteredData = {};
@@ -63,7 +76,7 @@ function EditAccountModal() {
         >
           <div className="fixed inset-0 bg-black opacity-50"></div>
 
-          <div className="bg-white p-8 rounded-md z-50 max-w-[32.5rem] w-[80%] flex flex-col animate-slideUp">
+          <div className="bg-white p-8 rounded-md z-50 max-w-[35.5rem] w-[100%] flex flex-col animate-slideUp">
             <div className="modal-top flex w-full justify-between pb-4 items-center">
               <span>Editar perfil</span>
               <div
@@ -127,12 +140,20 @@ function EditAccountModal() {
                   <button
                     className="text-sm mt-6 flex-1 bg-feedback-alert2 text-feedback-alert1 font-semibold py-2 px-4 rounded
               hover:bg-feedback-alert1 hover:text-white"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      console.log("excluir");
+                    }}
                   >
                     Excluir Perfil
                   </button>
                   <button
-                    className="text-sm mt-6 flex-1 bg-brand-brand1 text-white font-semibold py-2 px-4 rounded
-              hover:bg-brand-brand3"
+                    className={`text-sm mt-6 flex-1 bg-brand-brand1 text-white font-semibold py-2 px-4 rounded
+                    hover:bg-brand-brand3 
+                    ${
+                      !isAnyFieldFilled ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                    disabled={!isAnyFieldFilled}
                   >
                     Salvar Alterações
                   </button>

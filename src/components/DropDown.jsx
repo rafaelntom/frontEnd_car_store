@@ -9,7 +9,7 @@ function DropDown() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [iconRotation, setIconRotation] = useState(0);
   const { token, decodedToken, logOutHook } = useAuth();
-  const { toogleRegisterModalOn } = useContext(ModalContext);
+  const { toogleRegisterModalOn, setAdressModal } = useContext(ModalContext);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -43,6 +43,7 @@ function DropDown() {
                 </Link>
                 <Link
                   href="#"
+                  onClick={() => setAdressModal(true)}
                   className="block text-white py-2 px-4 hover:bg-gray-700"
                 >
                   Editar Endereço

@@ -4,6 +4,8 @@ export const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
   const [registerModal, setRegisterModal] = useState(false);
+  const [editAnnouncementModal, setEditAnnouncementModal] = useState(false);
+  const [adressModal, setAdressModal] = useState(true);
 
   const toogleRegisterModalOn = () => {
     setRegisterModal(true);
@@ -20,6 +22,10 @@ export const ModalProvider = ({ children }) => {
         setRegisterModal,
         toogleRegisterModalOff,
         toogleRegisterModalOn,
+        editAnnouncementModal,
+        setEditAnnouncementModal,
+        adressModal,
+        setAdressModal,
       }}
     >
       {children}

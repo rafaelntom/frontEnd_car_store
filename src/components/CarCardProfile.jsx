@@ -1,9 +1,12 @@
 import { inter, lexend } from "@/pages";
-import React from "react";
+import React, { useContext } from "react";
 import config from "../../tailwind.config";
 import Link from "next/link";
+import { ModalContext } from "../context/modalContext";
 
 function CarCardProfile({ announcement, edit = false }) {
+  const { setEditAnnouncementModal } = useContext(ModalContext);
+
   const truncatedDescription =
     announcement.description.length > 100
       ? `${announcement.description.slice(0, 100 - 1)}...`
@@ -30,6 +33,10 @@ function CarCardProfile({ announcement, edit = false }) {
     );
 
     return `R$ ${formattedIntegerPart},${decimalPart}`;
+  }
+
+  function toogleEditModal() {
+    setEditAnnouncementModal(true);
   }
 
   return (
@@ -89,7 +96,10 @@ function CarCardProfile({ announcement, edit = false }) {
       </Link>
       {edit ? (
         <div className="edit-buttons text-sm flex gap-4 w-full justify-start px-1 mt-2">
-          <span className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8">
+          <span
+            className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8"
+            onClick={toogleEditModal}
+          >
             Editar
           </span>
           <span className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8">

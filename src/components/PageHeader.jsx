@@ -4,10 +4,13 @@ import Link from "next/link";
 import { lexend } from "@/pages";
 import { useAuth } from "../hooks/useAuth";
 import EditAccountModal from "../components/EditAccountModal";
+import EditAnnouncementModal from "../components/EditAnnouncementModal";
+import EditAdressModal from "../components/EditAdressModal";
 import { ModalContext } from "../context/modalContext";
 
 function PageHeader() {
-  const { toogleRegisterModalOn } = useContext(ModalContext);
+  const { toogleRegisterModalOn, setAdressModal } = useContext(ModalContext);
+
   const { token, decodedToken, logOutHook } = useAuth();
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -27,6 +30,8 @@ function PageHeader() {
   return (
     <header className="flex items-center justify-between py-4 px-7 max-w-[1440px] min-[1440px]:mx-auto min-[1440px]:w-full">
       <EditAccountModal />
+      <EditAnnouncementModal />
+      <EditAdressModal />
       <Link href="/">
         <h1 className="font-bold text-heading-4 gradient-text">
           Motors <span className="text-heading-6 pl-1">shop</span>
@@ -61,6 +66,7 @@ function PageHeader() {
                 <Link
                   href="#"
                   className="block text-white py-2 px-4 hover:bg-gray-700"
+                  onClick={() => setAdressModal(true)}
                 >
                   Editar Endereço
                 </Link>
