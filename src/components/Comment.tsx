@@ -22,7 +22,7 @@ function Comment({ data }: { data: CommentData }) {
     if (days > 1) {
       return `há ${days} dias`;
     } else if (days === 1) {
-      return `há 1 dias`;
+      return `há 1 dia`;
     } else {
       return `Hoje`;
     }
@@ -39,7 +39,7 @@ function Comment({ data }: { data: CommentData }) {
         <span className="font-medium">{data.user.name}</span>
 
         <span className="text-grey-3">
-          &#x2022; {formatDate(data.created_at)}
+          &#x2022;  {formatDate(data.created_at)}
         </span>
       </div>
 

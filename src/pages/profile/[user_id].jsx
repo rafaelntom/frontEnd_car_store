@@ -62,9 +62,11 @@ function UserPage({ currentUserAnnouncements, currentPageUser }) {
             <span className="pt-4 w-fit">
               {currentPageUser ? currentPageUser.description : ""}
             </span>
-            <span className="border-brand-brand1 cursor-pointer border w-fit px-4 py-2 mt-4 rounded-lg text-brand-brand1 font-semibold hover:bg-brand-brand2 hover:text-white transition-all duration-200">
-              Criar anuncio
-            </span>
+            {currentPageUser && currentPageUser.is_seller ? (
+              <span className="border-brand-brand1 cursor-pointer border w-fit px-4 py-2 mt-4 rounded-lg text-brand-brand1 font-semibold hover:bg-brand-brand2 hover:text-white transition-all duration-200">
+                Criar anuncio
+              </span>
+            ) : null}
           </div>
         </div>
         <div className="announcement-section w-full mt-[195px] md:mt-[120px]">
@@ -120,7 +122,7 @@ export async function getServerSideProps(context) {
     };
   } catch (error) {
     const errorMessage =
-      error.response.data.message || "An unknown error occurred";
+      error.response?.data.message || "An unknown error occurred";
     console.error("Error fetching data:", errorMessage);
 
     return {

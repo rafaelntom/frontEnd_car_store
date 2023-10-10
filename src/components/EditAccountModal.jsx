@@ -18,8 +18,12 @@ function EditAccountModal() {
     userId = decodedToken.sub;
   }
 
-  const { registerModal, setRegisterModal, toogleRegisterModalOff } =
-    useContext(ModalContext);
+  const {
+    registerModal,
+    setRegisterModal,
+    toogleRegisterModalOff,
+    setDeleteModal,
+  } = useContext(ModalContext);
 
   const {
     handleSubmit,
@@ -129,7 +133,7 @@ function EditAccountModal() {
                   className="block border p-2 w-full focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light resize-none placeholder:font-normal"
                   placeholder="Insira uma breve descrição sobre você"
                 />
-                <div className="btns-container flex flex-col min-[420px]:flex-row gap-2">
+                <div className="btns-container flex flex-wrap gap-2">
                   <button
                     onClick={toogleRegisterModalOff}
                     className="text-sm mt-6 flex-1 bg-grey-6 text-grey-2 font-semibold py-2 px-4 rounded
@@ -142,7 +146,8 @@ function EditAccountModal() {
               hover:bg-feedback-alert1 hover:text-white"
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log("excluir");
+                      setRegisterModal(false);
+                      setDeleteModal(true);
                     }}
                   >
                     Excluir Perfil

@@ -44,12 +44,11 @@ function CarCardProfile({ announcement, edit = false }) {
       className={`rounded-xl border-white
       min-w-[312px] max-w-[320px] max-h-[360px]  mb-10
       flex flex-col p-1 group
-      hover:cursor-pointer hover:scale-[1.03] transition-all duration-100
       md:justify-center md:mx-auto md:mb-0 ${inter.className}`}
     >
       <Link href={`/announcement/${announcement.id}`}>
         {/* Image container */}
-        <div className="image-container bg-grey-5 w-full flex justify-center rounded-lg group-hover:border-2 group-hover:border-brand-brand1">
+        <div className="image-container bg-grey-5 w-full flex justify-center rounded-lg ">
           <img
             src={announcement.images[0]?.img_url}
             className="max-w-full min-w-full min-h-[120px] max-h-[120px] object-cover rounded-lg"
@@ -95,16 +94,19 @@ function CarCardProfile({ announcement, edit = false }) {
         </div>
       </Link>
       {edit ? (
-        <div className="edit-buttons text-sm flex gap-4 w-full justify-start px-1 mt-2">
+        <div className="edit-buttons text-sm flex gap-4 w-full justify-start px-1 mt-2 ">
           <span
-            className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8"
+            className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8 cursor-pointer transition-all duration-200"
             onClick={toogleEditModal}
           >
             Editar
           </span>
-          <span className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8">
+          <Link
+            href={`/announcement/${announcement.id}`}
+            className="border border-black p-1 font-medium px-2 rounded-md hover:bg-grey-2 hover:text-grey-8 hover:border-grey-8 transition-all duration-200"
+          >
             Ver detalhes
-          </span>
+          </Link>
         </div>
       ) : null}
     </div>
