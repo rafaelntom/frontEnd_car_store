@@ -22,7 +22,7 @@ const EditAnnouncementModal = () => {
           className={`fixed inset-0 flex items-center justify-center z-50 ${lexend.className}`}
         >
           <div className="fixed inset-0 bg-black opacity-50"></div>
-          <div className="bg-white p-8 rounded-md z-50 max-w-[35.5rem] w-[100%] flex flex-col animate-slideUp">
+          <div className="bg-white p-8 rounded-md z-50 max-w-[35.5rem] w-[100%] flex flex-col animate-slideUp max-h-[90%] overflow-y-auto">
             <div className="modal-header flex w-full justify-between pb-4 items-center">
               <h4>Editar anúncio</h4>
               <GrFormClose
@@ -96,7 +96,7 @@ const EditAnnouncementModal = () => {
               </div>
               <label
                 htmlFor="description"
-                className="block text-sm text-gray-600 mt-3 mb-1"
+                className="block text-sm text-grey-1 mt-3 mb-1"
               >
                 Descrição
               </label>
@@ -104,6 +104,30 @@ const EditAnnouncementModal = () => {
                 {...register("description")}
                 className="block border p-2 w-full focus:outline-brand-brand2 focus:outline-2 focus:placeholder-light resize-none placeholder:font-light"
                 placeholder="Descreva o seu carro"
+              />
+              <FormInput
+                label="Imagem de capa"
+                name="img_url"
+                register={register}
+                errors={errors}
+                placeholder="https://image.url"
+                type="URL"
+              />
+              <FormInput
+                label="1ª Imagem da galeria"
+                name="img_url"
+                register={register}
+                errors={errors}
+                placeholder="https://image.url"
+                type="URL"
+              />
+              <FormInput
+                label="2ª Imagem da galeria"
+                name="img_url"
+                register={register}
+                errors={errors}
+                placeholder="https://image.url"
+                type="URL"
               />
             </form>
           </div>

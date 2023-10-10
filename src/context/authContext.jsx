@@ -42,6 +42,11 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((error) => {
         console.error(error);
+
+        if (error.message == "Network Error") {
+          return toast.error("Problemas de conexão com o servidor");
+        }
+
         toast.error("Credenciais invalidas!");
       });
   };

@@ -35,7 +35,7 @@ function DropDown() {
             <>
               <div className="">
                 <Link
-                  href="#"
+                  href={`/profile/${decodedToken.sub}`}
                   className="block text-white py-2 px-4 hover:bg-gray-700"
                   onClick={toogleRegisterModalOn}
                 >

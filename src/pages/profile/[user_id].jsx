@@ -4,9 +4,7 @@ import PageFooter from "../../components/PageFooter";
 import axiosApi from "@/services/api";
 import { useAuth } from "../../hooks/useAuth";
 import { inter, lexend } from "../index";
-import CarCard from "../../components/CarCard";
 import CarCardProfile from "../../components/CarCardProfile";
-import { useRouter } from "next/router";
 
 function UserPage({ currentUserAnnouncements, currentPageUser }) {
   const { decodedToken } = useAuth();

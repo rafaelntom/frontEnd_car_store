@@ -71,11 +71,7 @@ export async function getServerSideProps() {
     const errorMessage = "An unknown error occurred";
 
     return {
-      redirect: {
-        destination: `/error?message=${encodeURIComponent(errorMessage)}`,
-        permanent: false,
-      },
-      props: { data: "" },
+      props: { data: [] },
     };
   }
 }
