@@ -90,18 +90,18 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
           className={`info-container flex flex-col bg-white w-[90%] self-center h-[90%] rounded-lg justify-center shadow-sm relative md:max-w-[46.875rem] py-4 px-3 mt-[-10px] gap-8`}
         >
           <span className="self-start text-grey-1 font-semibold text-heading-6">
-            {data.brand} {data.model}
+            {data?.brand} {data?.model}
           </span>
           <div className="mileage-year flex gap-4">
             <span className="bg-brand-brand4 text-brand-brand1 rounded-lg p-2 font-medium">
-              {data.year}
+              {data?.year}
             </span>
             <span className="bg-brand-brand4 text-brand-brand1 rounded-lg p-2 font-medium">
-              {data.milage} KM
+              {data?.milage} KM
             </span>
           </div>
           <span className="font-medium w-fit text-heading-6">
-            {formatPrice(data.price)}
+            {formatPrice(data?.price)}
           </span>
           <button className="w-fit bg-brand-brand1 rounded-lg py-2 px-6 text-white">
             Comprar
@@ -113,7 +113,7 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
           <h4 className="text-heading-6 font-semibold text-grey-1">
             Descrição
           </h4>
-          <p className="text-grey-2">{data.description}</p>
+          <p className="text-grey-2">{data?.description}</p>
         </div>
 
         {/* Container com imagens do anuncio */}
@@ -123,7 +123,7 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
         >
           <h5 className="text-heading-6 font-semibold text-grey-1">Fotos</h5>
           <div className="grid grid-cols-3 gap-3">
-            {data.images.map((image, index) => {
+            {data?.images.map((image, index) => {
               return (
                 <img
                   src={image.img_url}
@@ -141,14 +141,14 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
           md:max-w-[46.875rem] "
         >
           <span className="font-semibold bg-brand-brand1 text-white rounded-[50%] p-7 text-[30px] mt-4">
-            {getInitials(data.user.name)}
+            {getInitials(data?.user.name)}
           </span>
           <span className="text-grey-1 text-heading-6 font-semibold">
-            {data.user.name}
+            {data?.user.name}
           </span>
-          <span className="text-grey-2">{data.user.description}</span>
+          <span className="text-grey-2">{data?.user.description}</span>
           <Link
-            href={`/profile/${data.user.id}`}
+            href={`/profile/${data?.user.id}`}
             className="bg-black py-2 px-4 text-white rounded-lg cursor-pointer hover:bg-gray-800"
           >
             Ver todos anuncios
@@ -163,7 +163,7 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
           <h6 className="text-heading-6 font-semibold text-grey-1 self-start">
             Comentarios
           </h6>
-          {data.comments.map((comment) => {
+          {data?.comments.map((comment) => {
             return <Comment key={comment.id} data={comment} />;
           })}
         </div>

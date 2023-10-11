@@ -18,7 +18,8 @@ const EditAnnouncementModal = () => {
     register,
     formState: { errors },
     watch,
-  } = useForm({ resolver: zodResolver(CreateAnnouncementSchema) });
+  } = useForm();
+  // { resolver: zodResolver(CreateAnnouncementSchema) }
 
   const watchedFields = watch([
     "brand",
@@ -65,24 +66,22 @@ const EditAnnouncementModal = () => {
       }
     }
 
-    if (images.length > 0) {
-      filteredData.images = images;
-    }
+    filteredData.images = images;
 
     console.log(filteredData);
 
-    try {
-      await axiosApi.post(`/announcements`, filteredData);
-      toast.success("Anuncio criado com sucesso!", {
-        autoClose: 1500,
-      });
-      setCreateAnnouncementModal(false);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   await axiosApi.post(`/announcements`, filteredData);
+    //   toast.success("Anuncio criado com sucesso!", {
+    //     autoClose: 1500,
+    //   });
+    //   setCreateAnnouncementModal(false);
+    //   setTimeout(() => {
+    //     window.location.reload();
+    //   }, 1000);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return (
