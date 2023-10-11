@@ -43,13 +43,13 @@ function CarCardProfile({ announcement, edit = false }) {
   return (
     <div
       className={`rounded-xl border-white
-      min-w-[312px] max-w-[320px] max-h-[360px]  mb-10
+      min-w-[312px] max-w-[320px] max-h-[400px]  mb-10
       flex flex-col p-1 group
       md:justify-center md:mx-auto md:mb-0 ${inter.className}`}
     >
       <Link href={`/announcement/${announcement.id}`}>
         {/* Image container */}
-        <div className="image-container bg-grey-5 w-full flex justify-center rounded-lg ">
+        <div className="image-container bg-grey-6 w-full flex justify-center rounded-lg ">
           <img
             src={announcement.images[0]?.img_url}
             className="max-w-full min-w-full min-h-[120px] max-h-[120px] object-cover rounded-lg"

@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PageHeader from "../../components/PageHeader";
 import PageFooter from "../../components/PageFooter";
 import axiosApi from "@/services/api";
 import { useAuth } from "../../hooks/useAuth";
 import { inter, lexend } from "../index";
 import CarCardProfile from "../../components/CarCardProfile";
+import { ModalContext } from "../../context/modalContext";
 
 function UserPage({ currentUserAnnouncements, currentPageUser }) {
   const { decodedToken } = useAuth();
   const [profileOwner, setProfileOwner] = useState(false);
+  const { setCreateAnnouncementModal } = useContext(ModalContext);
 
   useEffect(() => {
     if (
@@ -61,7 +63,10 @@ function UserPage({ currentUserAnnouncements, currentPageUser }) {
               {currentPageUser ? currentPageUser.description : ""}
             </span>
             {currentPageUser && currentPageUser.is_seller ? (
-              <span className="border-brand-brand1 cursor-pointer border w-fit px-4 py-2 mt-4 rounded-lg text-brand-brand1 font-semibold hover:bg-brand-brand2 hover:text-white transition-all duration-200">
+              <span
+                onClick={() => setCreateAnnouncementModal(true)}
+                className="border-brand-brand1 cursor-pointer border w-fit px-4 py-2 mt-4 rounded-lg text-brand-brand1 font-semibold hover:bg-brand-brand2 hover:text-white transition-all duration-200"
+              >
                 Criar anuncio
               </span>
             ) : null}

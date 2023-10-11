@@ -8,6 +8,7 @@ export const ModalProvider = ({ children }) => {
   const [adressModal, setAdressModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteAnnouncementModal, setDeleteAnnouncementModal] = useState(false);
+  const [createAnnouncementModal, setCreateAnnouncementModal] = useState(false);
   const [announcementId, setAnnouncementId] = useState(null);
 
   const toogleRegisterModalOn = () => {
@@ -35,6 +36,8 @@ export const ModalProvider = ({ children }) => {
         setDeleteAnnouncementModal,
         announcementId,
         setAnnouncementId,
+        createAnnouncementModal,
+        setCreateAnnouncementModal,
       }}
     >
       {children}

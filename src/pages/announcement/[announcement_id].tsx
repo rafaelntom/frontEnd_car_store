@@ -63,7 +63,10 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
     return initials;
   }
 
-  let announcementMainImage = data.images[0].img_url;
+  let announcementMainImage = "";
+  if (data) {
+    announcementMainImage = data.images[0].img_url;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">

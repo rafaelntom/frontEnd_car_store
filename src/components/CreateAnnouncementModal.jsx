@@ -6,21 +6,19 @@ import FormInput from "./FormInput";
 import { useForm } from "react-hook-form";
 import axiosApi from "@/services/api";
 import { toast } from "react-toastify";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateAnnouncementSchema } from "@/schemas/announcement.schema";
 
 const EditAnnouncementModal = () => {
-  const {
-    editAnnouncementModal,
-    setEditAnnouncementModal,
-    setDeleteAnnouncementModal,
-    announcementId,
-  } = useContext(ModalContext);
+  const { createAnnouncementModal, setCreateAnnouncementModal } =
+    useContext(ModalContext);
 
   const {
     handleSubmit,
     register,
     formState: { errors },
     watch,
-  } = useForm();
+  } = useForm({ resolver: zodResolver(CreateAnnouncementSchema) });
 
   const watchedFields = watch([
     "brand",
@@ -71,12 +69,14 @@ const EditAnnouncementModal = () => {
       filteredData.images = images;
     }
 
+    console.log(filteredData);
+
     try {
-      await axiosApi.patch(`/announcements/${announcementId}`, filteredData);
-      toast.success("Dados alterados com sucesso", {
+      await axiosApi.post(`/announcements`, filteredData);
+      toast.success("Anuncio criado com sucesso!", {
         autoClose: 1500,
       });
-      setEditAnnouncementModal(false);
+      setCreateAnnouncementModal(false);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -87,17 +87,17 @@ const EditAnnouncementModal = () => {
 
   return (
     <>
-      {editAnnouncementModal && (
+      {createAnnouncementModal && (
         <div
           className={`fixed inset-0 flex items-center justify-center z-50 ${lexend.className}`}
         >
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div className="bg-white p-8 rounded-md z-50 max-w-[35.5rem] w-[100%] flex flex-col animate-slideUp max-h-[90%] overflow-y-auto">
             <div className="modal-header flex w-full justify-between pb-4 items-center">
-              <h4>Editar anúncio</h4>
+              <h4 className="text-xl text-grey-1">Criar Anúncio</h4>
               <GrFormClose
                 className="text-3xl mb-2 cursor-pointer hover:scale-[1.05]"
-                onClick={() => setEditAnnouncementModal(false)}
+                onClick={() => setCreateAnnouncementModal(false)}
               />
             </div>
             <span>Informações do veículo</span>
@@ -142,7 +142,7 @@ const EditAnnouncementModal = () => {
                 />
                 <FormInput
                   label="Cor"
-                  name="Color"
+                  name="color"
                   register={register}
                   errors={errors}
                   placeholder="Branco"
@@ -199,31 +199,22 @@ const EditAnnouncementModal = () => {
                 placeholder="https://image.url"
                 type="URL"
               />
-              <div className="btns-container flex flex-wrap w-full gap-4 justify-start pt-2">
+              <div className="btns-container flex flex-wrap w-full gap-4 justify-end pt-2">
                 <button
-                  className="bg-feedback-alert3 text-feedback-alert1 py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150"
-                  onClick={() => {
-                    setEditAnnouncementModal(false);
-                    setDeleteAnnouncementModal(true);
-                  }}
+                  className="bg-grey-6  text-grey-2 hover:bg-grey-2 hover:text-white py-2 px-3 rounded-lg font-medium hover:scale-105 transition-all duration-150"
+                  onClick={() => setEditAnnouncementModal(false)}
                 >
-                  Excluir Anúncio
+                  Cancelar
                 </button>
                 <button
-                  className={`bg-brand-brand2 text-white py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150 ${
+                  className={`bg-brand-brand2  text-white py-2 px-3 rounded-lg font-medium hover:scale-105 transition-all duration-150 ${
                     !isAnyFieldFilled
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:scale-105"
                   }`}
                   disabled={!isAnyFieldFilled}
                 >
-                  Salvar alterações
-                </button>
-                <button
-                  className="bg-grey-6 text-grey-2 py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150"
-                  onClick={() => setEditAnnouncementModal(false)}
-                >
-                  Cancelar
+                  Criar Anúncio
                 </button>
               </div>
             </form>

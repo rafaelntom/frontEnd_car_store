@@ -81,6 +81,28 @@ export const CreateCommentSchema = z.object({
     .min(10, { message: "O comentario deve ter no minimo 10 caracteres" }),
 });
 
+export const CreateAnnouncementSchema = z.object({
+  brand: z.string().max(40).nonempty(`Campo obrigatório`),
+  model: z.string().max(50).nonempty(`Campo obrigatório`),
+  year: z
+    .string()
+    .max(4, { message: "Insira um ano válido, ex: 2008" })
+    .nonempty(`Campo obrigatório`),
+  fuel_type: z.string().max(15).nonempty(`Campo obrigatório`),
+  milage: z.string().max(10).nonempty(`Campo obrigatório`),
+  color: z.string().max(15).nonempty(`Campo obrigatório`),
+  price_fipe: z
+    .string()
+    .nonempty(`Campo obrigatório`)
+    .or(z.number().nonnegative()),
+  price: z.string().nonempty(`Campo obrigatório`).or(z.number().nonnegative()),
+  description: z.string(),
+  img_url: z
+    .string()
+    .url("Preencha uma URL válida")
+    .nonempty("Campo obrigatório"),
+});
+
 export type SingleAnnouncementData = z.infer<typeof RetrieveSingleAnnouncement>;
 export type CommentData = z.infer<typeof CommentSchema>;
 export type FormComment = {

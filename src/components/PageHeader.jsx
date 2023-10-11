@@ -8,6 +8,7 @@ import EditAnnouncementModal from "../components/EditAnnouncementModal";
 import EditAdressModal from "../components/EditAdressModal";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import DeleteAnnouncementModal from "../components/DeleteAnnouncementModal";
+import CreateAnnouncementModal from "../components/CreateAnnouncementModal";
 import { ModalContext } from "../context/modalContext";
 
 function PageHeader() {
@@ -36,6 +37,7 @@ function PageHeader() {
       <EditAdressModal />
       <DeleteAccountModal />
       <DeleteAnnouncementModal />
+      <CreateAnnouncementModal />
       <Link href="/">
         <h1 className="font-bold text-heading-4 gradient-text">
           Motors <span className="text-heading-6 pl-1">shop</span>
