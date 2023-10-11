@@ -9,7 +9,6 @@ export const ModalProvider = ({ children }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteAnnouncementModal, setDeleteAnnouncementModal] = useState(false);
   const [announcementId, setAnnouncementId] = useState(null);
-  console.log(announcementId);
 
   const toogleRegisterModalOn = () => {
     setRegisterModal(true);

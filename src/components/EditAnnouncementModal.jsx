@@ -4,22 +4,85 @@ import { lexend } from "@/pages";
 import { GrFormClose } from "react-icons/gr";
 import FormInput from "./FormInput";
 import { useForm } from "react-hook-form";
+import axiosApi from "@/services/api";
+import { toast } from "react-toastify";
 
 const EditAnnouncementModal = () => {
   const {
     editAnnouncementModal,
     setEditAnnouncementModal,
     setDeleteAnnouncementModal,
+    announcementId,
   } = useContext(ModalContext);
 
   const {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm();
 
-  const handleFormSubmit = async (data) => {
-    console.log(data);
+  const watchedFields = watch([
+    "brand",
+    "model",
+    "year",
+    "fuel",
+    "milage",
+    "color",
+    "price_fipe",
+    "price",
+    "description",
+    "img_url",
+    "img_url_1",
+    "img_url_2",
+  ]);
+
+  const isAnyFieldFilled = Object.values(watchedFields).some(
+    (fieldValue) => fieldValue
+  );
+
+  const handleFormSubmit = async (formData) => {
+    const filteredData = {};
+
+    const images = [];
+
+    if (formData.img_url) {
+      images.push({ img_url: formData.img_url });
+      formData.img_url = "";
+    }
+
+    for (let i = 0; i < 3; i++) {
+      const imgKey = `img_url_${i}`;
+      if (formData[imgKey] && formData[imgKey].trim() !== "") {
+        images.push({ img_url: formData[imgKey] });
+      }
+    }
+
+    for (const key in formData) {
+      if (!key.startsWith("img_url_")) {
+        formData[key] = formData[key].trim();
+        if (formData[key] !== "") {
+          filteredData[key] = formData[key];
+        }
+      }
+    }
+
+    if (images.length > 0) {
+      filteredData.images = images;
+    }
+
+    try {
+      await axiosApi.patch(`/announcements/${announcementId}`, filteredData);
+      toast.success("Dados alterados com sucesso", {
+        autoClose: 1500,
+      });
+      setEditAnnouncementModal(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -146,10 +209,20 @@ const EditAnnouncementModal = () => {
                 >
                   Excluir Anúncio
                 </button>
-                <button className="bg-brand-brand2 text-white py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150">
+                <button
+                  className={`bg-brand-brand2 text-white py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150 ${
+                    !isAnyFieldFilled
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:scale-105"
+                  }`}
+                  disabled={!isAnyFieldFilled}
+                >
                   Salvar alterações
                 </button>
-                <button className="bg-grey-6 text-grey-2 py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150">
+                <button
+                  className="bg-grey-6 text-grey-2 py-2 px-3 rounded-lg font-medium flex-1 hover:scale-105 transition-all duration-150"
+                  onClick={() => setEditAnnouncementModal(false)}
+                >
                   Cancelar
                 </button>
               </div>

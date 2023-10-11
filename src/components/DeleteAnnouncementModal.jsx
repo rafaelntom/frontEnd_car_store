@@ -51,7 +51,6 @@ const DeleteAnnouncementModal = () => {
               <div
                 className="cursor-pointer hover:scale-105 transition-all duration-200"
                 onClick={() => {
-                  console.log(deleteAnnouncementModal);
                   setDeleteAnnouncementModal(false);
                 }}
               >

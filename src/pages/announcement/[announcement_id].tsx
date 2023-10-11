@@ -28,7 +28,6 @@ function newcar({ data }: { data: SingleAnnouncementData }) {
   } = useForm<CommentData>({ resolver: zodResolver(CreateCommentSchema) });
 
   async function onSubmit(data: CommentData) {
-    console.log(data);
     try {
       await axiosApi.post(`/comments/announcement/${announcementId}`, data);
       setTimeout(() => {
