@@ -68,20 +68,18 @@ const EditAnnouncementModal = () => {
 
     filteredData.images = images;
 
-    console.log(filteredData);
-
-    // try {
-    //   await axiosApi.post(`/announcements`, filteredData);
-    //   toast.success("Anuncio criado com sucesso!", {
-    //     autoClose: 1500,
-    //   });
-    //   setCreateAnnouncementModal(false);
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 1000);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      await axiosApi.post(`/announcements`, filteredData);
+      toast.success("Anuncio criado com sucesso!", {
+        autoClose: 1500,
+      });
+      setCreateAnnouncementModal(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
