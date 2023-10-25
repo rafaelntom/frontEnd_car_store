@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosApi = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://db-car-store-webservice.onrender.com/",
   timeout: 5000,
 });
 
